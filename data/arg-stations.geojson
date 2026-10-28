@@ -1,0 +1,523 @@
+{
+  "type": "FeatureCollection",
+  "name": "Stasiun ARG, BPP, PH, dan ARWS",
+  "source": "ARG_BPP_PH_Coordinates_ArcGIS-v3.xlsx",
+  "sheet": "ARG_BPP_PH_Stations",
+  "layerCategory": "ARG",
+  "featureCount": 27,
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          106.173298,
+          -6.908222
+        ]
+      },
+      "properties": {
+        "siteId": "STA3201",
+        "name": "ARG SMPK Panggarangan",
+        "fullSite": "STA3201-ARG SMPK Panggarangan",
+        "layerCategory": "ARG",
+        "sourceCategory": "ARG",
+        "source": "ARG_BPP_PH_Coordinates_ArcGIS-v3.xlsx",
+        "datum": "WGS84"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          106.010669,
+          -6.775808
+        ]
+      },
+      "properties": {
+        "siteId": "150086",
+        "name": "ARG Malingping",
+        "fullSite": "150086-ARG Malingping",
+        "layerCategory": "ARG",
+        "sourceCategory": "ARG",
+        "source": "ARG_BPP_PH_Coordinates_ArcGIS-v3.xlsx",
+        "datum": "WGS84"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          106.3043,
+          -6.6596
+        ]
+      },
+      "properties": {
+        "siteId": "STA0243",
+        "name": "ARG Rekayasa Sobang",
+        "fullSite": "STA0243-ARG Rekayasa Sobang",
+        "layerCategory": "ARG",
+        "sourceCategory": "ARG",
+        "source": "ARG_BPP_PH_Coordinates_ArcGIS-v3.xlsx",
+        "datum": "WGS84"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          106.1550015,
+          -6.62840184
+        ]
+      },
+      "properties": {
+        "siteId": "STA0147",
+        "name": "ARG Cirinten",
+        "fullSite": "STA0147-ARG Cirinten",
+        "layerCategory": "ARG",
+        "sourceCategory": "ARG",
+        "source": "ARG_BPP_PH_Coordinates_ArcGIS-v3.xlsx",
+        "datum": "WGS84"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          105.95678,
+          -6.611524
+        ]
+      },
+      "properties": {
+        "siteId": "150274",
+        "name": "ARG Bendung Ciliman",
+        "fullSite": "150274-ARG Bendung Ciliman",
+        "layerCategory": "ARG",
+        "sourceCategory": "ARG",
+        "source": "ARG_BPP_PH_Coordinates_ArcGIS-v3.xlsx",
+        "datum": "WGS84"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          106.411325,
+          -6.569224
+        ]
+      },
+      "properties": {
+        "siteId": "150278",
+        "name": "ARG Banjar Irigasi",
+        "fullSite": "150278-ARG Banjar Irigasi",
+        "layerCategory": "ARG",
+        "sourceCategory": "ARG",
+        "source": "ARG_BPP_PH_Coordinates_ArcGIS-v3.xlsx",
+        "datum": "WGS84"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          106.208975,
+          -6.584045
+        ]
+      },
+      "properties": {
+        "siteId": "STA0242",
+        "name": "ARG Rekayasa Bojongmenteng",
+        "fullSite": "STA0242-ARG Rekayasa Bojongmenteng",
+        "layerCategory": "ARG",
+        "sourceCategory": "ARG",
+        "source": "ARG_BPP_PH_Coordinates_ArcGIS-v3.xlsx",
+        "datum": "WGS84"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          106.015454,
+          -6.493481
+        ]
+      },
+      "properties": {
+        "siteId": "150087",
+        "name": "ARG Banjarsari",
+        "fullSite": "150087-ARG Banjarsari",
+        "layerCategory": "ARG",
+        "sourceCategory": "ARG",
+        "source": "ARG_BPP_PH_Coordinates_ArcGIS-v3.xlsx",
+        "datum": "WGS84"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          105.919965,
+          -6.376618
+        ]
+      },
+      "properties": {
+        "siteId": "150276",
+        "name": "ARG Menes",
+        "fullSite": "150276-ARG Menes",
+        "layerCategory": "ARG",
+        "sourceCategory": "ARG",
+        "source": "ARG_BPP_PH_Coordinates_ArcGIS-v3.xlsx",
+        "datum": "WGS84"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          106.0436,
+          -6.3506
+        ]
+      },
+      "properties": {
+        "siteId": "30010",
+        "name": "BPP Cimanuk (PH)",
+        "fullSite": "30010-BPP Cimanuk (PH)",
+        "layerCategory": "ARG",
+        "sourceCategory": "BPP/PH",
+        "source": "ARG_BPP_PH_Coordinates_ArcGIS-v3.xlsx",
+        "datum": "WGS84"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          105.988958,
+          -6.309841
+        ]
+      },
+      "properties": {
+        "siteId": "STG1004",
+        "name": "ARG Mandalawangi",
+        "fullSite": "STG1004-ARG Mandalawangi",
+        "layerCategory": "ARG",
+        "sourceCategory": "ARG",
+        "source": "ARG_BPP_PH_Coordinates_ArcGIS-v3.xlsx",
+        "datum": "WGS84"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          105.933051,
+          -6.220089
+        ]
+      },
+      "properties": {
+        "siteId": "150277",
+        "name": "ARG Padarincang",
+        "fullSite": "150277-ARG Padarincang",
+        "layerCategory": "ARG",
+        "sourceCategory": "ARG",
+        "source": "ARG_BPP_PH_Coordinates_ArcGIS-v3.xlsx",
+        "datum": "WGS84"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          106.0168,
+          -6.204
+        ]
+      },
+      "properties": {
+        "siteId": "STA0034",
+        "name": "ARG Ciomas",
+        "fullSite": "STA0034-ARG Ciomas",
+        "layerCategory": "ARG",
+        "sourceCategory": "ARG",
+        "source": "ARG_BPP_PH_Coordinates_ArcGIS-v3.xlsx",
+        "datum": "WGS84"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          106.130983,
+          -6.060724
+        ]
+      },
+      "properties": {
+        "siteId": "150275",
+        "name": "ARG Kramat Watu",
+        "fullSite": "150275-ARG Kramat Watu",
+        "layerCategory": "ARG",
+        "sourceCategory": "ARG",
+        "source": "ARG_BPP_PH_Coordinates_ArcGIS-v3.xlsx",
+        "datum": "WGS84"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          106.0850053,
+          -6.0040262
+        ]
+      },
+      "properties": {
+        "siteId": "STG1002",
+        "name": "ARG RPH CILEGON",
+        "fullSite": "STG1002-ARG RPH CILEGON",
+        "layerCategory": "ARG",
+        "sourceCategory": "ARG",
+        "source": "ARG_BPP_PH_Coordinates_ArcGIS-v3.xlsx",
+        "datum": "WGS84"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          106.2038,
+          -6.041636
+        ]
+      },
+      "properties": {
+        "siteId": "30012",
+        "name": "BPTPHP Serang (PH)",
+        "fullSite": "30012-BPTPHP Serang (PH)",
+        "layerCategory": "ARG",
+        "sourceCategory": "BPP/PH",
+        "source": "ARG_BPP_PH_Coordinates_ArcGIS-v3.xlsx",
+        "datum": "WGS84"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          106.32961,
+          -6.024102
+        ]
+      },
+      "properties": {
+        "siteId": "STAL112",
+        "name": "ARG Tirtayasa",
+        "fullSite": "STAL112-ARG Tirtayasa",
+        "layerCategory": "ARG",
+        "sourceCategory": "ARG",
+        "source": "ARG_BPP_PH_Coordinates_ArcGIS-v3.xlsx",
+        "datum": "WGS84"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          106.3135556,
+          -6.1301944
+        ]
+      },
+      "properties": {
+        "siteId": "30003",
+        "name": "PH Digital Kibin",
+        "fullSite": "30003-PH Digital Kibin",
+        "layerCategory": "ARG",
+        "sourceCategory": "BPP/PH",
+        "source": "ARG_BPP_PH_Coordinates_ArcGIS-v3.xlsx",
+        "datum": "WGS84"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          106.27774,
+          -6.260025
+        ]
+      },
+      "properties": {
+        "siteId": "STA0036",
+        "name": "ARG Cikeusal Timur",
+        "fullSite": "STA0036-ARG Cikeusal Timur",
+        "layerCategory": "ARG",
+        "sourceCategory": "ARG",
+        "source": "ARG_BPP_PH_Coordinates_ArcGIS-v3.xlsx",
+        "datum": "WGS84"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          106.302063,
+          -6.373468
+        ]
+      },
+      "properties": {
+        "siteId": "STA0033",
+        "name": "ARG Cisalak Baru",
+        "fullSite": "STA0033-ARG Cisalak Baru",
+        "layerCategory": "ARG",
+        "sourceCategory": "ARG",
+        "source": "ARG_BPP_PH_Coordinates_ArcGIS-v3.xlsx",
+        "datum": "WGS84"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          106.3802,
+          -6.127633
+        ]
+      },
+      "properties": {
+        "siteId": "150088",
+        "name": "ARG Kresek",
+        "fullSite": "150088-ARG Kresek",
+        "layerCategory": "ARG",
+        "sourceCategory": "ARG",
+        "source": "ARG_BPP_PH_Coordinates_ArcGIS-v3.xlsx",
+        "datum": "WGS84"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          106.418242,
+          -6.156485
+        ]
+      },
+      "properties": {
+        "siteId": "STAL111",
+        "name": "ARG BPP Balaraja Tangerang",
+        "fullSite": "STAL111-ARG BPP Balaraja Tangerang",
+        "layerCategory": "ARG",
+        "sourceCategory": "ARG",
+        "source": "ARG_BPP_PH_Coordinates_ArcGIS-v3.xlsx",
+        "datum": "WGS84"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          106.47699,
+          -6.295661
+        ]
+      },
+      "properties": {
+        "siteId": "30001",
+        "name": "PH Digital Tigaraksa",
+        "fullSite": "30001-PH Digital Tigaraksa",
+        "layerCategory": "ARG",
+        "sourceCategory": "BPP/PH",
+        "source": "ARG_BPP_PH_Coordinates_ArcGIS-v3.xlsx",
+        "datum": "WGS84"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          106.584349,
+          -6.116474
+        ]
+      },
+      "properties": {
+        "siteId": "30011",
+        "name": "BPP Sepatan (PH)",
+        "fullSite": "30011-BPP Sepatan (PH)",
+        "layerCategory": "ARG",
+        "sourceCategory": "BPP/PH",
+        "source": "ARG_BPP_PH_Coordinates_ArcGIS-v3.xlsx",
+        "datum": "WGS84"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          106.647,
+          -6.172
+        ]
+      },
+      "properties": {
+        "siteId": "STA9007",
+        "name": "ARWS Rekayasa Stageof Tangerang",
+        "fullSite": "STA9007-ARWS Rekayasa Stageof Tangerang",
+        "layerCategory": "ARG",
+        "sourceCategory": "ARWS",
+        "source": "ARG_BPP_PH_Coordinates_ArcGIS-v3.xlsx",
+        "datum": "WGS84"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          106.125497,
+          -6.28679
+        ]
+      },
+      "properties": {
+        "siteId": "STA0035",
+        "name": "ARG Pandeglang",
+        "fullSite": "STA0035-ARG Pandeglang",
+        "layerCategory": "ARG",
+        "sourceCategory": "ARG",
+        "source": "ARG_BPP_PH_Coordinates_ArcGIS-v3.xlsx",
+        "datum": "WGS84"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          106.5302122,
+          -6.06467902
+        ]
+      },
+      "properties": {
+        "siteId": "STA0146",
+        "name": "ARG Mauk",
+        "fullSite": "STA0146-ARG Mauk",
+        "layerCategory": "ARG",
+        "sourceCategory": "ARG",
+        "source": "ARG_BPP_PH_Coordinates_ArcGIS-v3.xlsx",
+        "datum": "WGS84"
+      }
+    }
+  ]
+}

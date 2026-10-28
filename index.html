@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f4f8f7">
+  <meta name="description" content="SITARUM, Sistem Titik Alokasi & Ruang Umum,Perikanan,Swasta Maritim. Jelajahi sebaran fasilitas pelabuhan secara interaktif.">
+  <title>SITARUM</title>
+  <link rel="icon" type="image/png" href="Logo_BMKG_(2010).png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="landing.css?v=lucide-interface-icons">
+</head>
+<body>
+  <!-- Interface icons: Lucide SVG icon set, ISC license (https://lucide.dev/license). -->
+  <header class="site-header">
+    <a class="brand" href="index.html" aria-label="SITARUM beranda">
+      <span class="brand-logo"><img src="Logo_BMKG_(2010).png" alt="Logo BMKG"></span>
+      <span class="brand-name">SITARUM<small> Sistem Titik Alokasi & Ruang Umum,Perikanan,Swasta Maritim</small></span>
+    </a>
+    <button class="menu-toggle" id="menuToggle" aria-label="Buka navigasi" aria-expanded="false"><svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg></button>
+    <nav class="main-nav" id="mainNav" aria-label="Navigasi utama">
+      <a href="#tentang">Tentang</a><a href="#fitur">Fitur</a><a href="#sumber">Sumber data</a>
+      <a class="nav-cta" href="map.html">Buka peta <span><svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M7 7h10v10"/></svg></span></a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="hero-copy">
+        <div class="eyebrow"><i></i> PLATFORM INFORMASI GEOSPASIAL BANTEN</div>
+        <h1>Kenali pelabuhan Banten <span>dalam satu peta.</span></h1>
+        <p class="hero-description">SITARUM menyajikan informasi sebaran fasilitas pelabuhan di Provinsi Banten melalui peta interaktif yang mudah dijelajahi.</p>
+        <div class="hero-actions"><a class="button button-primary" href="map.html">Lihat peta <span><svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M7 7h10v10"/></svg></span></a><a class="button button-secondary" href="#tentang">Kenali SITARUM <span><svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14m7-7-7 7-7-7"/></svg></span></a></div>
+        <div class="hero-trust"><span class="trust-mark"><svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 10c0 5-8 11-8 11S4 15 4 10a8 8 0 1 1 16 0Z"/><circle cx="12" cy="10" r="2.5"/></svg></span><span><strong>Fokus wilayah Provinsi Banten</strong><small>Informasi spasial dalam koordinat WGS 84</small></span></div>
+      </div>
+      <div class="hero-visual" aria-label="Ilustrasi peta maritim Banten">
+        <div class="visual-topline"><span><i></i> PETA SEBARAN PELABUHAN</span><span class="visual-coord">BANTEN · ID</span></div>
+        <div class="map-art">
+          <svg class="contour-lines" viewBox="0 0 640 470" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><path d="M-20 76C85 13 128 105 230 57S410 12 670 80M-10 117c106-60 144 36 245-10S421 51 664 121M-20 163c108-56 155 37 251-11S418 96 665 165M-16 212c112-50 149 40 255-8s179-58 429-4M-10 263c98-42 166 45 261-2s196-56 416-5M-20 315c114-50 158 41 266-6s170-52 425-1M-15 365c111-45 167 37 273-9s187-43 412 4M-14 420c119-48 160 29 273-14s190-32 407 8"/><path d="M89-20c52 72-3 112 46 176s5 109 62 174 12 115 61 167M204-15c47 78-11 117 39 183s3 110 54 174 14 108 59 149M334-20c54 81-4 112 48 181s8 116 56 170 17 106 60 156M464-15c48 68-8 116 44 179s-2 115 53 176 11 106 59 151"/></svg>
+          <div class="sea-label sea-north">LAUT JAWA</div><div class="sea-label sea-sunda">SELAT SUNDA</div>
+          <svg class="banten-shape" viewBox="0 0 300 385" aria-hidden="true"><path d="M157 12 184 24l15 27 26 14 4 24 24 15 5 25-16 19 17 20-7 25-21 12 13 23-12 26-27 9-4 26-25 19-9 33-25 31-15 37-19-14-4-28-16-15 3-30-15-25 8-27-18-21 5-25-24-15 6-26-20-18 9-26-14-20 16-21-1-24 18-16 4-26 22-13 10-29 25-13 4-28z"/></svg>
+          <svg class="route-lines" viewBox="0 0 640 470" preserveAspectRatio="none" aria-hidden="true"><path d="M392 86Q341 169 304 236T263 370"/><path d="M304 236Q390 256 501 317"/><path d="M304 236Q233 186 148 160"/></svg>
+          <div class="map-point point-one"><span></span><b>Merak</b></div><div class="map-point point-two"><span></span><b>Karangantu</b></div><div class="map-point point-three"><span></span><b>Labuan</b></div><div class="map-point point-four"><span></span><b>Panimbang</b></div>
+          <div class="map-scale"><i></i><span>ILUSTRASI SEBARAN</span></div>
+        </div>
+        <div class="visual-foot"><span>Jelajahi fasilitas pelabuhan dari kabupaten ke kabupaten</span><span class="compass">N <b><svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m3 11 19-9-9 19-2-8-8-2Z"/></svg></b></span></div>
+        <div class="visual-float"><span class="float-icon"><svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 10c0 5-8 11-8 11S4 15 4 10a8 8 0 1 1 16 0Z"/><circle cx="12" cy="10" r="2.5"/></svg></span><div><strong>Informasi dalam genggaman</strong><small>Filter kategori dan wilayah</small></div></div>
+      </div>
+      <div class="hero-bottom"><span>01 / INFORMASI PELABUHAN BANTEN</span><span>SCROLL UNTUK MENJELAJAHI <b><svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14m7-7-7 7-7-7"/></svg></b></span></div>
+    </section>
+
+    <section class="intro section-wrap" id="tentang">
+      <div class="section-label">TENTANG SITARUM</div>
+      <div class="intro-grid"><h2>Satu ruang untuk memahami <span>jaringan pelabuhan Banten.</span></h2><div><p>SITARUM (Sistem Titik Alokasi & Ruang Umum,Perikanan,Swasta Maritim) adalah WebGIS yang membantu pengguna melihat lokasi dan kategori fasilitas pelabuhan dalam konteks wilayah. Peta dirancang untuk mendukung eksplorasi informasi, bukan menggantikan verifikasi lapangan.</p><a class="text-link" href="map.html">Mulai jelajahi peta <span><svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14m-7-7 7 7-7 7"/></svg></span></a></div></div>
+      <div class="stats-row"><article><strong>8</strong><span>Kabupaten dan kota</span></article><article><strong>4</strong><span>Kategori fasilitas</span></article><article><strong>WGS 84</strong><span>Sistem koordinat peta</span></article><article><strong>Interaktif</strong><span>Filter dan ekspor peta</span></article></div>
+    </section>
+
+    <section class="features-section" id="fitur">
+      <div class="section-wrap"><div class="section-label">DIBUAT UNTUK EKSPLORASI</div><div class="feature-heading"><h2>Informasi yang lebih mudah <span>dibaca dan dijelajahi.</span></h2><p>Temukan sebaran fasilitas dengan kontrol yang sederhana, langsung dari browser.</p></div>
+        <div class="feature-grid">
+          <article class="feature-card"><div class="feature-number">01</div><div class="feature-icon teal-icon"><svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 10c0 5-8 11-8 11S4 15 4 10a8 8 0 1 1 16 0Z"/><circle cx="12" cy="10" r="2.5"/></svg></div><h3>Peta interaktif</h3><p>Lihat lokasi fasilitas pelabuhan di Provinsi Banten dan buka informasi setiap titik pada peta.</p><span class="feature-line"></span></article>
+          <article class="feature-card"><div class="feature-number">02</div><div class="feature-icon gold-icon"><svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16M7 12h10m-7 6h4"/><circle cx="8" cy="6" r="1.5"/><circle cx="15" cy="12" r="1.5"/><circle cx="10" cy="18" r="1.5"/></svg></div><h3>Filter kategori & wilayah</h3><p>Pilah pelabuhan umum, penyeberangan, perikanan, dan terminal khusus menurut kabupaten/kota.</p><span class="feature-line"></span></article>
+          <article class="feature-card"><div class="feature-number">03</div><div class="feature-icon blue-icon"><svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="8.5" cy="9" r="1.5"/><path d="m21 15-5-5L5 20"/></svg></div><h3>Ekspor tampilan</h3><p>Unduh data sesuai filter atau simpan tampilan peta sebagai gambar untuk dokumentasi.</p><span class="feature-line"></span></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="data-section section-wrap" id="sumber">
+      <div class="data-copy"><div class="section-label">SUMBER & TRANSPARANSI</div><h2>Kenali asal informasi <span>yang ditampilkan.</span></h2><p>Snapshot spasial bersumber dari layanan Satu Peta KSP milik BIG. Nama pelabuhan perikanan dicocokkan dengan daftar DKP Banten. Data adalah inventaris awal dan perlu diverifikasi untuk penggunaan operasional.</p><a class="text-link" href="map.html">Baca keterangan data di peta <span><svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14m-7-7 7 7-7 7"/></svg></span></a></div>
+      <div class="source-card"><div class="source-card-head"><span class="source-icon"><svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 7v14"/><path d="M3 18V5a2 2 0 0 1 2-2h3a4 4 0 0 1 4 4 4 4 0 0 1 4-4h3a2 2 0 0 1 2 2v13a1 1 0 0 1-1 1h-4a4 4 0 0 0-4 2 4 4 0 0 0-4-2H4a1 1 0 0 1-1-1Z"/></svg></span><span>RUJUKAN DATA</span><span class="source-status"><i></i> TERBUKA</span></div><a href="https://kspservices.big.go.id/satupeta/rest/services/PUBLIK/SARANA_PRASARANA/MapServer/layers" target="_blank" rel="noopener"><strong>Badan Informasi Geospasial</strong><small>Satu Peta KSP · Sarana Prasarana <svg class="ui-icon external-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M14 3h7v7m0-7L10 14"/><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg></small></a><a href="https://dmsppid.bantenprov.go.id/upload/dms/37/buku-saku-dkp-2019.pdf" target="_blank" rel="noopener"><strong>Dinas Kelautan dan Perikanan Banten</strong><small>Kelautan dan Perikanan dalam Angka 2019 <svg class="ui-icon external-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M14 3h7v7m0-7L10 14"/><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg></small></a><a href="https://awscenter.bmkg.go.id/" target="_blank" rel="noopener"><strong>AWS Center BMKG</strong><small>Data stasiun cuaca otomatis</small></a><div class="source-note">Lokasi pada peta merepresentasikan fasilitas yang tersedia di sumber, bukan setiap dermaga satu per satu.</div></div>
+    </section>
+
+    <section class="closing-cta"><div><span class="section-label">SITARUM · BANTEN</span><h2>Mulai dari peta.</h2><p>Jelajahi informasi pelabuhan Banten secara interaktif.</p></div><a class="button button-white" href="map.html">Lihat peta sekarang <span><svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M7 7h10v10"/></svg></span></a></section>
+  </main>
+
+  <footer class="site-footer" id="kontak">
+    <div class="footer-main"><div class="footer-brand"><a class="brand" href="index.html"><span class="brand-logo"><img src="Logo_BMKG_(2010).png" alt="Logo BMKG"></span><span class="brand-name">SITARUM<small>Sistem Titik Alokasi & Ruang Umum,Perikanan,Swasta Maritim</small></span></a><p>Platform informasi geospasial untuk menjelajahi fasilitas pelabuhan di Provinsi Banten.</p><div class="footer-location"><span><svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 10c0 5-8 11-8 11S4 15 4 10a8 8 0 1 1 16 0Z"/><circle cx="12" cy="10" r="2.5"/></svg></span> Provinsi Banten, Indonesia</div></div>
+      <div class="footer-links"><h3>Jelajahi</h3><a href="map.html">Peta interaktif</a><a href="#tentang">Tentang SITARUM</a><a href="#sumber">Sumber data</a></div>
+      <div class="footer-contact"><h3>Hubungi pengelola</h3><p>Punya masukan atau pertanyaan tentang SITARUM? Kirim pesan melalui formulir ini.</p><form class="contact-form" action="/api/contact" method="post"><div class="form-field"><label for="contactName">Nama</label><input id="contactName" name="name" type="text" placeholder="Nama Anda" autocomplete="name" required></div><div class="form-field"><label for="contactEmail">Email</label><input id="contactEmail" name="email" type="email" placeholder="nama@email.com" autocomplete="email" required></div><div class="form-field form-message"><label for="contactMessage">Pesan</label><textarea id="contactMessage" name="message" rows="3" placeholder="Tuliskan pesan atau masukan Anda" required></textarea></div><button type="submit">Kirim pesan <span><svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14m-7-7 7 7-7 7"/></svg></span></button></form></div>
+    </div>
+    <div class="footer-bottom"><span>© 2026 SITARUM · Sistem Titik Alokasi & Ruang Umum,Perikanan,Swasta Maritim</span><span>Informasi spasial untuk Banten</span></div>
+  </footer>
+  <script>
+    const menuToggle=document.getElementById('menuToggle');
+    const mainNav=document.getElementById('mainNav');
+    menuToggle.addEventListener('click',()=>{const isOpen=mainNav.classList.toggle('open');menuToggle.setAttribute('aria-expanded',String(isOpen));menuToggle.setAttribute('aria-label',isOpen?'Tutup navigasi':'Buka navigasi')});
+    mainNav.querySelectorAll('a').forEach(link=>link.addEventListener('click',()=>{mainNav.classList.remove('open');menuToggle.setAttribute('aria-expanded','false')}));
+    const revealTargets=document.querySelectorAll('.intro .section-label,.intro-grid,.stats-row,.features-section .section-label,.feature-heading,.feature-card,.data-copy,.source-card,.closing-cta,.footer-brand,.footer-links,.footer-contact');
+    revealTargets.forEach((element,index)=>{element.classList.add('scroll-reveal');if(element.classList.contains('feature-card'))element.style.setProperty('--reveal-delay',`${(index%3)*100}ms`)});
+    document.body.classList.add('reveal-enabled');
+    if('IntersectionObserver' in window){
+      const revealObserver=new IntersectionObserver(entries=>entries.forEach(entry=>{if(entry.isIntersecting){entry.target.classList.add('is-visible');revealObserver.unobserve(entry.target)}}),{threshold:.14,rootMargin:'0px 0px -35px 0px'});
+      revealTargets.forEach(element=>revealObserver.observe(element));
+    }else{revealTargets.forEach(element=>element.classList.add('is-visible'))}
+    let sectionScrollFrame=0,previousScrollBehavior='';
+    function cancelSectionScroll(){if(!sectionScrollFrame)return;cancelAnimationFrame(sectionScrollFrame);sectionScrollFrame=0;document.documentElement.style.scrollBehavior=previousScrollBehavior}
+    function animateToSection(target){
+      cancelSectionScroll();
+      if(window.matchMedia('(prefers-reduced-motion: reduce)').matches){target.scrollIntoView();return}
+      const root=document.documentElement,start=window.scrollY,destination=Math.max(0,target.getBoundingClientRect().top+start-18),distance=destination-start,duration=Math.min(1250,Math.max(800,Math.abs(distance)*.65));
+      if(Math.abs(distance)<4)return;
+      previousScrollBehavior=root.style.scrollBehavior;root.style.scrollBehavior='auto';let beganAt;
+      const step=now=>{if(!beganAt)beganAt=now;const progress=Math.min(1,(now-beganAt)/duration),eased=progress<.5?4*progress*progress*progress:1-Math.pow(-2*progress+2,3)/2;window.scrollTo(0,start+distance*eased);if(progress<1){sectionScrollFrame=requestAnimationFrame(step)}else{sectionScrollFrame=0;root.style.scrollBehavior=previousScrollBehavior;target.classList.remove('section-arrive');requestAnimationFrame(()=>{target.classList.add('section-arrive');setTimeout(()=>target.classList.remove('section-arrive'),850)})}};
+      sectionScrollFrame=requestAnimationFrame(step);
+    }
+    window.addEventListener('wheel',cancelSectionScroll,{passive:true});window.addEventListener('touchstart',cancelSectionScroll,{passive:true});window.addEventListener('keydown',event=>{if(['ArrowDown','ArrowUp','PageDown','PageUp','Home','End',' '].includes(event.key))cancelSectionScroll()});
+    document.querySelectorAll('a[href^="#"]').forEach(link=>link.addEventListener('click',event=>{
+      const target=document.querySelector(link.getAttribute('href'));
+      if(!target)return;
+      event.preventDefault();animateToSection(target);
+    }));
+  </script>
+</body>
+</html>

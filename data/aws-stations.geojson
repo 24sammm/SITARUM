@@ -1,0 +1,282 @@
+{
+  "type": "FeatureCollection",
+  "name": "Stasiun AWS BMKG",
+  "source": "AWS_BMKG_Coordinates_ArcGIS.xlsx",
+  "sheet": "BMKG_Stations",
+  "featureCount": 15,
+  "excludedRows": [
+    "STA19991 - Water Level PLTU Labuhan (bukan AWS)"
+  ],
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          105.5025,
+          -6.78119444
+        ]
+      },
+      "properties": {
+        "siteId": "10002",
+        "name": "AWS Ujung Kulon",
+        "fullSite": "10002-AWS Ujung Kulon",
+        "source": "AWS_BMKG_Coordinates_ArcGIS.xlsx",
+        "datum": "WGS84",
+        "category": "aws"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          105.71,
+          -6.7156
+        ]
+      },
+      "properties": {
+        "siteId": "STW1015",
+        "name": "AWS Cibaliung",
+        "fullSite": "STW1015-AWS Cibaliung",
+        "source": "AWS_BMKG_Coordinates_ArcGIS.xlsx",
+        "datum": "WGS84",
+        "category": "aws"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          105.951525,
+          -6.014822
+        ]
+      },
+      "properties": {
+        "siteId": "STA2231",
+        "name": "AWS Pelabuhan Serang",
+        "fullSite": "STA2231-AWS Pelabuhan Serang",
+        "source": "AWS_BMKG_Coordinates_ArcGIS.xlsx",
+        "datum": "WGS84",
+        "category": "aws"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          105.9853,
+          -5.918889
+        ]
+      },
+      "properties": {
+        "siteId": "STA2080",
+        "name": "AWS Maritim Merak",
+        "fullSite": "STA2080-AWS Maritim Merak",
+        "source": "AWS_BMKG_Coordinates_ArcGIS.xlsx",
+        "datum": "WGS84",
+        "category": "aws"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          106.1218,
+          -6.111273
+        ]
+      },
+      "properties": {
+        "siteId": "STA5072",
+        "name": "AWS Digi Stamet Serang",
+        "fullSite": "STA5072-AWS Digi Stamet Serang",
+        "source": "AWS_BMKG_Coordinates_ArcGIS.xlsx",
+        "datum": "WGS84",
+        "category": "aws"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          106.2406,
+          -6.119277
+        ]
+      },
+      "properties": {
+        "siteId": "STW1014",
+        "name": "AWS Singamerta",
+        "fullSite": "STW1014-AWS Singamerta",
+        "source": "AWS_BMKG_Coordinates_ArcGIS.xlsx",
+        "datum": "WGS84",
+        "category": "aws"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          106.217389,
+          -6.355214
+        ]
+      },
+      "properties": {
+        "siteId": "STW1056",
+        "name": "AWS Cibadak",
+        "fullSite": "STW1056-AWS Cibadak",
+        "source": "AWS_BMKG_Coordinates_ArcGIS.xlsx",
+        "datum": "WGS84",
+        "category": "aws"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          106.0808076,
+          -6.5158105
+        ]
+      },
+      "properties": {
+        "siteId": "STA4010",
+        "name": "AWS SMPK Cileles",
+        "fullSite": "STA4010-AWS SMPK Cileles",
+        "source": "AWS_BMKG_Coordinates_ArcGIS.xlsx",
+        "datum": "WGS84",
+        "category": "aws"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          106.192172,
+          -6.509814
+        ]
+      },
+      "properties": {
+        "siteId": "STA2119",
+        "name": "AWS Leuwidamar",
+        "fullSite": "STA2119-AWS Leuwidamar",
+        "source": "AWS_BMKG_Coordinates_ArcGIS.xlsx",
+        "datum": "WGS84",
+        "category": "aws"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          106.6581,
+          -6.12523
+        ]
+      },
+      "properties": {
+        "siteId": "STA5082",
+        "name": "AWS Digi Stamet Cengkareng",
+        "fullSite": "STA5082-AWS Digi Stamet Cengkareng",
+        "source": "AWS_BMKG_Coordinates_ArcGIS.xlsx",
+        "datum": "WGS84",
+        "category": "aws"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          106.6448,
+          -6.1978
+        ]
+      },
+      "properties": {
+        "siteId": "STA2048",
+        "name": "AWS Golf Modern",
+        "fullSite": "STA2048-AWS Golf Modern",
+        "source": "AWS_BMKG_Coordinates_ArcGIS.xlsx",
+        "datum": "WGS84",
+        "category": "aws"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          106.5677384,
+          -6.287308
+        ]
+      },
+      "properties": {
+        "siteId": "STA5062",
+        "name": "AWS Digi Stamet Curug",
+        "fullSite": "STA5062-AWS Digi Stamet Curug",
+        "source": "AWS_BMKG_Coordinates_ArcGIS.xlsx",
+        "datum": "WGS84",
+        "category": "aws"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          106.6503,
+          -6.2792
+        ]
+      },
+      "properties": {
+        "siteId": "STA2047",
+        "name": "AWS BSD Serpong",
+        "fullSite": "STA2047-AWS BSD Serpong",
+        "source": "AWS_BMKG_Coordinates_ArcGIS.xlsx",
+        "datum": "WGS84",
+        "category": "aws"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          106.7563266,
+          -6.3025406
+        ]
+      },
+      "properties": {
+        "siteId": "STA2290",
+        "name": "AWS BBMKG Wilayah II Tangerang Selatan",
+        "fullSite": "STA2290-AWS BBMKG Wilayah II Tangerang Selatan",
+        "source": "AWS_BMKG_Coordinates_ArcGIS.xlsx",
+        "datum": "WGS84",
+        "category": "aws"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          106.7509349,
+          -6.26147016
+        ]
+      },
+      "properties": {
+        "siteId": "STA2062",
+        "name": "AWS Staklim Banten",
+        "fullSite": "STA2062-AWS Staklim Banten",
+        "source": "AWS_BMKG_Coordinates_ArcGIS.xlsx",
+        "datum": "WGS84",
+        "category": "aws"
+      }
+    }
+  ]
+}
