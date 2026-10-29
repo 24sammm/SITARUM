@@ -36,3 +36,105 @@
 .main-port-pin span{background:transparent;border:0;box-shadow:0 0 0 2px #d99a32,0 2px 6px rgba(23,43,59,.35)}
 .main-port-pin span{box-shadow:none}
 .boundary-symbol{width:28px;height:18px;flex:0 0 28px;display:block;border-top:2px dashed #278da7;opacity:.95;margin-top:2px}.map-legend .boundary-symbol{width:20px;height:12px;flex:0 0 20px;margin:0;border-top:2px dashed #278da7}.water-boundary-count{background:#e9f4f7;color:#287a91}.water-boundary-group .filter-option input:focus-visible+.switch{outline:2px solid #64b8b0;outline-offset:2px}@media(max-width:600px){.water-boundary-group{grid-column:1/-1}}
+
+/* Keep the map reset control beside the map frame. */
+.map-reset-button{white-space:nowrap}
+@media(max-width:600px){.map-panel-header{height:auto;min-height:57px;gap:10px}.map-tools{gap:8px}.map-reset-button{height:30px;padding:0 8px;font-size:9px}.map-reset-button span{font-size:12px}}
+
+
+/* Polish summary cards: align labels, counts, and supporting text consistently. */
+.metrics{align-items:stretch;row-gap:14px}
+.metric-card{position:relative;min-height:148px;padding:16px 17px 14px;border-radius:10px;display:flex;flex-direction:column;transition:transform .18s ease,box-shadow .18s ease,border-color .18s ease}
+.metric-card:hover{transform:translateY(-2px);border-color:#d9e6e7;box-shadow:0 8px 22px rgba(23,43,59,.08)}
+.metric-top{grid-template-columns:34px minmax(0,1fr) auto;gap:9px;min-height:34px}
+.metric-label{min-width:0;line-height:1.35;overflow-wrap:anywhere}
+.metric-trend,.metric-top>.legend-dot{justify-self:end;white-space:nowrap}
+.metric-value{margin-top:15px;line-height:1}
+.metric-foot{margin-top:auto;padding-top:8px;line-height:1.45;overflow-wrap:anywhere}
+@media(max-width:820px){.metrics{row-gap:10px}.metric-card{min-height:136px;padding:13px 12px}.metric-top{grid-template-columns:29px minmax(0,1fr) auto;gap:7px}}
+@media(max-width:600px){.metric-card{min-height:130px;padding:12px 10px}.metric-top{grid-template-columns:27px minmax(0,1fr) auto;gap:6px}.metric-icon{width:27px;height:27px}.metric-value,.metric-foot{margin-left:33px}.metric-value{margin-top:14px}.metric-foot{padding-top:7px;font-size:8px}}
+
+
+/* AWS station details beneath the map frame */
+.aws-detail{display:grid;grid-template-columns:minmax(210px,270px) minmax(0,1fr);gap:24px;padding:22px 24px;border-top:1px solid #e9eff0;background:linear-gradient(120deg,#fbfdfd,#fff);min-height:295px}
+.aws-detail-image-wrap{position:relative;min-height:250px;overflow:hidden;border-radius:9px;background:#eaf1f2}
+.aws-detail-image-wrap img{width:100%;height:100%;min-height:250px;max-height:290px;display:block;object-fit:cover}
+.aws-image-caption{position:absolute;left:10px;bottom:10px;padding:6px 9px;border:1px solid rgba(255,255,255,.4);border-radius:5px;background:rgba(16,43,57,.72);color:#fff;font-size:9px;backdrop-filter:blur(8px)}
+.aws-detail-content{min-width:0;display:flex;flex-direction:column}
+.aws-detail-heading{display:flex;align-items:flex-start;justify-content:space-between;gap:12px}
+.aws-detail-kicker{color:#77919b;font-size:8px;font-weight:800;letter-spacing:1.1px}
+.aws-detail-heading h2{margin:5px 0 3px;color:#18384a;font:700 19px Manrope,'DM Sans',sans-serif;letter-spacing:-.35px}
+.aws-detail-heading p{margin:0;color:#83939a;font-size:10px}
+.aws-detail-status{display:flex;align-items:center;gap:7px;flex:0 0 auto;padding:6px 9px;border-radius:20px;background:#eaf5f2;color:#298372;font-size:8px;font-weight:700;letter-spacing:.3px}
+.aws-detail-status i{width:6px;height:6px;border-radius:50%;background:#3ca77b}
+.aws-detail-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px;margin:18px 0 14px}
+.aws-detail-grid>div{min-width:0;padding:9px 10px;border:1px solid #edf1f2;border-radius:6px;background:#fff}
+.aws-detail-grid dt{margin-bottom:5px;color:#91a0a7;font-size:8px}
+.aws-detail-grid dd{margin:0;color:#3b5663;font-size:10px;font-weight:600;line-height:1.4;overflow-wrap:anywhere}
+.aws-detail-description{padding:12px 14px;border-left:2px solid #5da4ae;border-radius:0 6px 6px 0;background:#f4f8f8}
+.aws-detail-description h3{margin:0 0 5px;color:#355461;font:700 10px Manrope,'DM Sans',sans-serif}
+.aws-detail-description p{margin:0;color:#738790;font-size:9px;line-height:1.65}
+.aws-detail-sources{display:flex;flex-wrap:wrap;align-items:center;gap:8px 16px;margin-top:13px;color:#82939a;font-size:8px}
+.aws-detail-sources a{color:#087f83;font-weight:700;text-decoration:none}
+.aws-detail-sources a:hover{text-decoration:underline}
+.aws-detail-note{margin:8px 0 0;color:#98a4aa;font-size:8px;line-height:1.5}
+@media(max-width:1000px){.aws-detail{grid-template-columns:220px minmax(0,1fr);gap:17px;padding:18px}.aws-detail-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:700px){.aws-detail{grid-template-columns:1fr;padding:14px;gap:15px}.aws-detail-image-wrap{min-height:185px}.aws-detail-image-wrap img{height:220px;min-height:185px;max-height:240px}.aws-detail-heading h2{font-size:16px}.aws-detail-grid{margin:13px 0;gap:7px}.aws-detail-grid>div{padding:8px}.aws-detail-sources{gap:9px 12px}}
+
+
+/* Show the selected AWS detail as a map-frame overlay. */
+.map-canvas-wrap{position:relative;min-width:0;isolation:isolate}
+.map-canvas-wrap>#map{position:relative;z-index:1}
+.aws-detail{position:absolute;left:16px;bottom:16px;z-index:450;width:min(760px,calc(100% - 32px));max-height:calc(100% - 32px);min-height:0;overflow:auto;display:none;grid-template-columns:minmax(170px,220px) minmax(0,1fr);gap:16px;padding:14px;border:1px solid rgba(219,231,233,.92);border-radius:10px;background:rgba(255,255,255,.97);box-shadow:0 12px 36px rgba(20,48,61,.2);backdrop-filter:blur(12px)}
+.aws-detail.has-selection{display:grid}
+.aws-detail-image-wrap{min-height:190px;align-self:stretch}
+.aws-detail-image-wrap img{height:100%;min-height:190px;max-height:310px;object-fit:cover}
+.aws-detail-content{padding:2px 2px 0;position:relative}
+.aws-detail-heading{padding-right:24px}
+.aws-detail-heading h2{font-size:17px}
+.aws-detail-close{position:absolute;right:10px;top:9px;z-index:2;width:27px;height:27px;border:1px solid #e4ebec;border-radius:7px;background:#fff;color:#5b7079;font-size:18px;line-height:1;cursor:pointer;box-shadow:0 2px 7px rgba(23,43,59,.08)}
+.aws-detail-close:hover{background:#f0f7f6;color:#087f83}
+.aws-detail-grid{margin:12px 0 10px;gap:7px}
+.aws-detail-grid>div{padding:7px 8px}
+.aws-detail-description{padding:9px 11px}
+.aws-detail-sources{margin-top:9px}
+.aws-detail-note{margin-top:6px}
+@media(max-width:700px){.aws-detail{left:10px;bottom:10px;width:calc(100% - 20px);max-height:72%;grid-template-columns:1fr;gap:9px;padding:10px}.aws-detail-image-wrap{min-height:110px;height:110px}.aws-detail-image-wrap img{height:110px;min-height:110px;max-height:110px}.aws-detail-content{padding:0}.aws-detail-heading h2{font-size:15px}.aws-detail-grid{margin:9px 0;gap:6px}.aws-detail-grid>div{padding:6px 7px}.aws-detail-grid dt{font-size:7px}.aws-detail-grid dd{font-size:9px}.aws-detail-description p{font-size:8px}.aws-detail-sources{font-size:7px}.aws-detail-note{font-size:7px}}
+
+
+/* Fill the AWS photo frame completely (avoid an intrinsic-height gap). */
+.aws-detail-image-wrap{height:210px;min-height:210px;position:relative}
+.aws-detail-image-wrap img{position:absolute;inset:0;width:100%;height:100%;min-height:0;max-height:none;object-fit:cover;object-position:center}
+@media(max-width:700px){.aws-detail-image-wrap{height:110px;min-height:110px}.aws-detail-image-wrap img{height:100%;min-height:0;max-height:none}}
+
+
+/* Lift the AWS detail panel slightly within the map frame. */
+.aws-detail{bottom:28px}
+@media(max-width:700px){.aws-detail{bottom:18px}}
+
+
+/* Raise AWS station details farther from the lower map edge. */
+.aws-detail{bottom:64px}
+@media(max-width:700px){.aws-detail{bottom:36px}}
+
+
+/* Refined statistics cards */
+.metrics{grid-template-columns:repeat(4,minmax(0,1fr));gap:13px;row-gap:13px;align-items:stretch}
+.metric-card{height:176px;min-height:176px;padding:16px 17px 14px;border:1px solid #e4ebee;border-radius:12px;background:linear-gradient(155deg,#fff 0%,#fff 74%,#fbfdfd 100%);box-shadow:0 5px 18px rgba(24,52,68,.045);overflow:hidden;transition:transform .18s ease,border-color .18s ease,box-shadow .18s ease}
+.metric-card::before{content:'';position:absolute;left:0;top:16px;bottom:16px;width:3px;border-radius:0 3px 3px 0;background:#dcebea;opacity:.9}
+.metric-card:hover{transform:translateY(-2px);border-color:#d3e3e3;box-shadow:0 10px 24px rgba(24,52,68,.085)}
+.metric-top{grid-template-columns:34px minmax(0,1fr) auto;align-items:center;gap:9px;min-height:34px}
+.metric-icon{width:34px;height:34px;border-radius:10px}
+.metric-label,.main-port-metric-symbol+.metric-label{min-width:0;white-space:normal;overflow-wrap:anywhere;line-height:1.35;font-size:8px;letter-spacing:.72px}
+.metric-trend{justify-self:end;max-width:100px;padding:5px 6px;border-radius:5px;font-size:7px;letter-spacing:.25px}
+.metric-value{margin:16px 0 0 43px;font-size:27px;line-height:1;letter-spacing:-.5px}
+.metric-value small{font-size:9px;letter-spacing:0}
+.metric-foot{margin:8px 0 0 43px;padding-top:0;font-size:9px;line-height:1.45;color:#82929c;max-width:230px}
+@media(max-width:1200px){.metrics{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(max-width:820px){.metrics{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.metric-card{height:158px;min-height:158px;padding:13px 12px 12px}.metric-card::before{top:12px;bottom:12px}.metric-top{grid-template-columns:30px minmax(0,1fr) auto;gap:7px}.metric-icon{width:30px;height:30px;border-radius:9px}.metric-value,.metric-foot{margin-left:37px}.metric-value{margin-top:14px;font-size:25px}}
+@media(max-width:600px){.metric-card{height:150px;min-height:150px;padding:12px 10px}.metric-top{grid-template-columns:27px minmax(0,1fr) auto;gap:6px}.metric-icon{width:27px;height:27px}.metric-label{font-size:7px;letter-spacing:.45px}.metric-trend{display:none}.metric-value,.metric-foot{margin-left:33px}.metric-value{margin-top:13px;font-size:23px}.metric-foot{margin-top:7px;font-size:8px}}
+
+
+.metrics .metric-card .metric-foot{margin-top:auto;padding-top:8px}
+@media(max-width:600px){.metrics .metric-card .metric-foot{margin-top:auto;padding-top:7px}}
+
