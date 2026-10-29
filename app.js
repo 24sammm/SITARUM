@@ -24,8 +24,15 @@ const portPoints=[...wharves,{
 }];
 const mainPortExpectedCount=16;
 const mainPortMatchedCount=portPoints.filter(point=>point.category==='utama').length;
+const awsStationRegions={
+  '10002':'Kabupaten Pandeglang','STW1015':'Kabupaten Pandeglang','STA2231':'Kabupaten Serang','STA2080':'Kota Cilegon',
+  'STA5072':'Kota Serang','STW1014':'Kabupaten Serang','STW1056':'Kabupaten Lebak','STA4010':'Kabupaten Lebak',
+  'STA2119':'Kabupaten Lebak','STA5082':'Kota Tangerang','STA2048':'Kabupaten Tangerang','STA5062':'Kota Tangerang',
+  'STA2047':'Kabupaten Tangerang','STA2290':'Kota Tangerang Selatan','STA2062':'Kota Tangerang Selatan'
+};
 const awsStations=awsGeoJSON.features.map(feature=>({
   ...feature.properties,
+  region:awsStationRegions[feature.properties.siteId]||'Provinsi Banten',
   coords:[feature.geometry.coordinates[1],feature.geometry.coordinates[0]]
 }));
 const argStations=argGeoJSON.features.map(feature=>({
@@ -90,6 +97,34 @@ let toastTimer;
 
 function showToast(message){toast.textContent=message;toast.classList.add('show');clearTimeout(toastTimer);toastTimer=setTimeout(()=>toast.classList.remove('show'),2800)}
 function escapeHtml(value){return String(value??'').replace(/[&<>"']/g,char=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[char]))}
+function showAwsDetail(point){
+  const fallbackAwsPhoto={
+    image:'https://staklim-yogya.bmkg.go.id/asset/images/alat/AWS1.jpg',
+    page:'https://staklim-yogya.bmkg.go.id/alat-pengamatan-bmkg/',
+    caption:'Ilustrasi perangkat AWS · BMKG',
+    note:'Belum ditemukan foto khusus titik ini; gambar memakai referensi perangkat AWS dari laman BMKG.'
+  };
+  const photo=fallbackAwsPhoto;
+  document.getElementById('awsDetailTitle').textContent=point.name||'Stasiun AWS BMKG';
+  document.getElementById('awsDetailSubtitle').textContent=`Stasiun pengamatan cuaca otomatis · ${point.region}`;
+  document.getElementById('awsDetailId').textContent=point.siteId||'Tidak tersedia';
+  document.getElementById('awsDetailFullName').textContent=point.fullSite||point.name||'Tidak tersedia';
+  document.getElementById('awsDetailRegion').textContent=point.region||'Provinsi Banten';
+  document.getElementById('awsDetailLat').textContent=`${Math.abs(point.coords[0]).toFixed(6)}° ${point.coords[0]<0?'LS':'LU'}`;
+  document.getElementById('awsDetailLon').textContent=`${point.coords[1].toFixed(6)}° BT`;
+  document.getElementById('awsDetailDatum').textContent=point.datum||'WGS 84';
+  document.getElementById('awsDetailSource').textContent='Referensi stasiun: AWS Center BMKG';
+  const image=document.getElementById('awsDetailImage');
+  image.src=photo.image;
+  image.alt=`${photo.caption} untuk ${point.name}`;
+  document.getElementById('awsImageCaption').textContent=photo.caption;
+  document.getElementById('awsPhotoSource').href=photo.page;
+  document.getElementById('awsPhotoSource').textContent='Referensi foto BMKG ↗';
+  document.getElementById('awsDetailNote').textContent=photo.note;
+  const panel=document.getElementById('awsDetail');
+  panel.classList.add('has-selection');
+  panel.setAttribute('aria-hidden','false');
+}
 fetch('batasperairan.geojson').then(response=>{if(!response.ok)throw new Error('File batas perairan tidak dapat dimuat');return response.json()}).then(data=>{
   const bantenWaters=(data.features||[]).filter(feature=>String(feature.properties?.provinsi||'').toLowerCase()==='banten');
   waterBoundaryLayer.addData({type:'FeatureCollection',features:bantenWaters});
@@ -127,8 +162,9 @@ function updateMap(){
   const visibleAws=awsToggle.checked?awsStations:[];
   visibleAws.forEach(point=>{
     const icon=L.divIcon({className:'aws-map-pin',html:'<span aria-hidden="true"><svg viewBox="0 0 24 24"><circle class="solar-sun" cx="18" cy="5" r="2"/><path class="solar-ray" d="M18 1.5v1m0 5v1m-3.5-3.5h1m5 0h1m-5-2.5.8.8m3.4 3.4.8.8m0-5-.8.8m-3.4 3.4-.8.8"/><path class="solar-panel" d="M4 9h14l2 8H2z"/><path class="solar-grid" d="m7 10-1.2 6m5.2-6v6m3.2-6 1 6M4 13h12"/><path class="solar-leg" d="M10 17v3m-3 1h9"/></svg></span>',iconSize:[27,27],iconAnchor:[13,13]});
-    const popup=`<div class="popup-title">${escapeHtml(point.name)}</div><div class="popup-meta">Stasiun AWS BMKG<br>ID: ${escapeHtml(point.siteId)}<br>Datum: ${escapeHtml(point.datum)}</div><span class="popup-badge aws-popup-badge">Sumber: AWS Center</span>`;
-    L.marker(point.coords,{icon,title:`${point.name} (${point.siteId})`}).bindPopup(popup).addTo(awsMarkerLayer);
+    const popup=`<div class="popup-title">${escapeHtml(point.name)}</div><div class="popup-meta">Stasiun AWS BMKG<br>ID: ${escapeHtml(point.siteId)}<br>${escapeHtml(point.region)}<br>Datum: ${escapeHtml(point.datum)}</div><span class="popup-badge aws-popup-badge">Sumber: AWS Center</span>`;
+    const marker=L.marker(point.coords,{icon,title:`${point.name} (${point.siteId})`}).bindPopup(popup).addTo(awsMarkerLayer);
+    marker.on('click',()=>showAwsDetail(point));
   });
   argMarkerLayer.clearLayers();
   const visibleArg=argToggle.checked?argStations:[];
@@ -204,6 +240,7 @@ argToggle.addEventListener('change',updateMap);
 waterBoundaryToggle.addEventListener('change',()=>{if(waterBoundaryToggle.checked)waterBoundaryLayer.addTo(map);else map.removeLayer(waterBoundaryLayer)});
 document.getElementById('clearFilters').addEventListener('click',()=>{[...typeInputs,...regionInputs,awsToggle,argToggle,waterBoundaryToggle].forEach(input=>input.checked=true);waterBoundaryLayer.addTo(map);updateMap()});
 document.getElementById('resetView').addEventListener('click',()=>{map.setView(initialCenter,initialZoom);showToast('Tampilan peta dikembalikan ke Provinsi Banten.')});
+document.getElementById('awsDetailClose').addEventListener('click',()=>{const panel=document.getElementById('awsDetail');panel.classList.remove('has-selection');panel.setAttribute('aria-hidden','true')});
 exportBtn.addEventListener('click',event=>{event.stopPropagation();exportMenu.hidden=!exportMenu.hidden;exportBtn.setAttribute('aria-expanded',String(!exportMenu.hidden))});
 document.addEventListener('click',event=>{if(!event.target.closest('.export-wrap'))closeExportMenu()});
 document.addEventListener('keydown',event=>{if(event.key==='Escape')closeExportMenu()});
