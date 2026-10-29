@@ -1,10 +1,29 @@
 const portGeoJSON=window.harborPortData;
 const awsGeoJSON=window.sipelAwsData;
 const argGeoJSON=window.sitarumArgData;
+const mainPortSourceNames=new Map([
+  ['Cituis','Pelabuhan Cituis'],['PP. Kronjo','Pelabuhan Kronjo'],['PP. Tanjung Pasir','Pelabuhan Tanjung Pasir'],
+  ['PP. Anyer','Pelabuhan Anyer'],['PP. Lontar','Pelabuhan Lontar'],['PP. Pasauran','Pelabuhan Pasauran'],
+  ['Bojonegara','Pelabuhan Bojonegara'],['Karangantu','Pelabuhan Karangantu'],['Merak','Pelabuhan Merak'],
+  ['Banten','Pelabuhan Kepuh'],['PP. Labuan','Pelabuhan Labuan'],['PP. Panimbang','Pelabuhan Panimbang'],['PP. Tamanjaya','Pelabuhan Tamanjaya'],
+  ['PP. Sukanegara','Pelabuhan Carita'],
+  ['PP. Binuangen','Pelabuhan Binuangeun']
+]);
 const wharves=portGeoJSON.features.map(feature=>({
   ...feature.properties,
+  name:mainPortSourceNames.get(feature.properties.name)||feature.properties.name,
+  originalName:feature.properties.name,
+  sourceCategory:mainPortSourceNames.has(feature.properties.name)?feature.properties.category:feature.properties.sourceCategory,
+  category:mainPortSourceNames.has(feature.properties.name)?'utama':feature.properties.category,
   coords:[feature.geometry.coordinates[1],feature.geometry.coordinates[0]]
 }));
+const portPoints=[...wharves,{
+  name:'Pelabuhan Ciwandan',originalName:'Pelabuhan Ciwandan',category:'utama',sourceCategory:'umum',
+  district:'Kota Cilegon',source:'BIG SRGI - Stasiun pasut Pel. Ciwandan',datum:'WGS 84',
+  coords:[-6.01769,105.9526]
+}];
+const mainPortExpectedCount=16;
+const mainPortMatchedCount=portPoints.filter(point=>point.category==='utama').length;
 const awsStations=awsGeoJSON.features.map(feature=>({
   ...feature.properties,
   coords:[feature.geometry.coordinates[1],feature.geometry.coordinates[0]]
@@ -14,6 +33,7 @@ const argStations=argGeoJSON.features.map(feature=>({
   coords:[feature.geometry.coordinates[1],feature.geometry.coordinates[0]]
 }));
 const categoryLabels={
+  utama:'Pelabuhan utama',
   umum:'Pelabuhan umum',
   penyeberangan:'Pelabuhan penyeberangan',
   perikanan:'Pelabuhan perikanan',
@@ -27,11 +47,11 @@ const streetMap=L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
 const imageryMap=L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',{
   attribution:'Tiles &copy; Esri, Maxar, Earthstar Geographics, and the GIS User Community',maxZoom:19,crossOrigin:'anonymous'
 });
-streetMap.addTo(map);
+imageryMap.addTo(map);
 const basemapControl=L.control({position:'topright'});
 basemapControl.onAdd=()=>{
   const container=L.DomUtil.create('div','basemap-picker leaflet-control');
-  container.innerHTML='<button class="basemap-trigger" type="button" aria-expanded="false" aria-haspopup="true"><span>Basemap</span><svg viewBox="0 0 16 16" aria-hidden="true"><path d="m4 6 4 4 4-4"/></svg></button><div class="basemap-menu" hidden><button type="button" class="basemap-option is-active" data-basemap="street"><span>Peta jalan</span><span class="basemap-check" aria-hidden="true">✓</span></button><button type="button" class="basemap-option" data-basemap="imagery"><span>Imagery</span><span class="basemap-check" aria-hidden="true">✓</span></button></div>';
+  container.innerHTML='<button class="basemap-trigger" type="button" aria-expanded="false" aria-haspopup="true"><span>Basemap</span><svg viewBox="0 0 16 16" aria-hidden="true"><path d="m4 6 4 4 4-4"/></svg></button><div class="basemap-menu" hidden><button type="button" class="basemap-option" data-basemap="street"><span>Peta jalan</span><span class="basemap-check" aria-hidden="true">✓</span></button><button type="button" class="basemap-option is-active" data-basemap="imagery"><span>Imagery</span><span class="basemap-check" aria-hidden="true">✓</span></button></div>';
   const trigger=container.querySelector('.basemap-trigger'),menu=container.querySelector('.basemap-menu');
   const closeMenu=()=>{menu.hidden=true;trigger.setAttribute('aria-expanded','false')};
   L.DomEvent.disableClickPropagation(container);
@@ -52,6 +72,11 @@ basemapControl.onAdd=()=>{
 };
 basemapControl.addTo(map);
 L.control.zoom({position:'topleft'}).addTo(map);
+const waterBoundaryLayer=L.geoJSON(null,{
+  pane:'overlayPane',
+  interactive:false,
+  style:{color:'#278da7',weight:1.7,opacity:.9,dashArray:'7 5',fillColor:'#55b7c9',fillOpacity:.025}
+}).addTo(map);
 const markerLayer=L.layerGroup().addTo(map);
 const awsMarkerLayer=L.layerGroup().addTo(map);
 const argMarkerLayer=L.layerGroup().addTo(map);
@@ -59,16 +84,22 @@ const typeInputs=[...document.querySelectorAll('[data-filter]')];
 const regionInputs=[...document.querySelectorAll('[data-region]')];
 const awsToggle=document.getElementById('awsToggle');
 const argToggle=document.getElementById('argToggle');
+const waterBoundaryToggle=document.getElementById('waterBoundaryToggle');
 const toast=document.getElementById('toast'),exportBtn=document.getElementById('exportBtn'),exportMenu=document.getElementById('exportMenu');
 let toastTimer;
 
 function showToast(message){toast.textContent=message;toast.classList.add('show');clearTimeout(toastTimer);toastTimer=setTimeout(()=>toast.classList.remove('show'),2800)}
 function escapeHtml(value){return String(value??'').replace(/[&<>"']/g,char=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[char]))}
+fetch('batasperairan.geojson').then(response=>{if(!response.ok)throw new Error('File batas perairan tidak dapat dimuat');return response.json()}).then(data=>{
+  const bantenWaters=(data.features||[]).filter(feature=>String(feature.properties?.provinsi||'').toLowerCase()==='banten');
+  waterBoundaryLayer.addData({type:'FeatureCollection',features:bantenWaters});
+  if(!waterBoundaryToggle.checked)map.removeLayer(waterBoundaryLayer);
+}).catch(error=>{console.error(error);waterBoundaryToggle.disabled=true;showToast('Layer batas perairan gagal dimuat dari file GeoJSON.')});
 function selectedTypes(){return typeInputs.filter(input=>input.checked).map(input=>input.dataset.filter)}
 function selectedRegions(){return regionInputs.filter(input=>input.checked).map(input=>input.dataset.region)}
-function getVisiblePoints(){const types=selectedTypes(),regions=selectedRegions();return wharves.filter(point=>types.includes(point.category)&&regions.includes(point.district))}
+function getVisiblePoints(){const types=selectedTypes(),regions=selectedRegions();return portPoints.filter(point=>types.includes(point.category)&&regions.includes(point.district))}
 function getExportPoints(){
-  const portRows=getVisiblePoints().map(point=>({name:point.name,category:categoryLabels[point.category],siteId:'',sourceCategory:'',district:point.district,coords:point.coords,datum:'WGS 84',source:point.source}));
+  const portRows=getVisiblePoints().map(point=>({name:point.name,category:categoryLabels[point.category],siteId:point.code||'',sourceCategory:categoryLabels[point.sourceCategory]||point.sourceCategory||'',district:point.district,coords:point.coords,datum:point.datum||'WGS 84',source:point.source}));
   const awsRows=awsToggle.checked?awsStations.map(point=>({name:point.name,category:'Stasiun AWS BMKG',siteId:point.siteId,sourceCategory:'AWS',district:'',coords:point.coords,datum:point.datum,source:point.source})):[];
   const argRows=argToggle.checked?argStations.map(point=>({name:point.name,category:'ARG',siteId:point.siteId,sourceCategory:point.sourceCategory,district:'',coords:point.coords,datum:point.datum,source:point.source})):[];
   return [...portRows,...awsRows,...argRows];
@@ -78,13 +109,18 @@ function updateMap(){
   visible.forEach(point=>{
     const label=categoryLabels[point.category]||'Pelabuhan';
     const isAnchorCategory=point.category==='umum'||point.category==='perikanan';
-    const icon=isAnchorCategory
+    const icon=point.category==='utama'
+      ?L.divIcon({className:'main-port-pin',html:'<span><img src="https://cdn-icons-png.flaticon.com/512/6213/6213926.png" alt=""></span>',iconSize:[28,28],iconAnchor:[14,14]})
+      :point.category==='khusus'
+      ?L.divIcon({className:'special-map-pin',html:'<span><img src="https://cdn-icons-png.flaticon.com/128/14770/14770597.png" alt=""></span>',iconSize:[30,30],iconAnchor:[15,15]})
+      :isAnchorCategory
       ?L.divIcon({className:`harbor-pin harbor-anchor-pin anchor-${point.category}`,html:'<svg viewBox="0 0 44 56" aria-hidden="true"><path class="map-pin-shape" d="M22 1.5C10.7 1.5 1.5 10.7 1.5 22c0 14.2 20.5 32.5 20.5 32.5S42.5 36.2 42.5 22C42.5 10.7 33.3 1.5 22 1.5Z"/><circle class="map-pin-center" cx="22" cy="21" r="15"/><g class="map-pin-symbol"><path d="M15 13h14v3H15zM12 18h20v6H12zM10 26h24l-4 5H15z"/><path class="map-anchor" d="M22 25v8m-3.5-5.5h7M20.5 24a1.5 1.5 0 1 1 3 0 1.5 1.5 0 0 1-3 0ZM16 32c.2 4 2.6 6.2 6 6.2s5.8-2.2 6-6.2m-12 0 3 2.7m9-2.7-3 2.7"/></g></svg>',iconSize:[22,29],iconAnchor:[11,27]})
       :L.divIcon({className:'harbor-pin',html:`<div class="pin-core pin-${point.category}" aria-hidden="true"></div>`,iconSize:[17,17],iconAnchor:[8,8]});
     const details=[escapeHtml(point.district),escapeHtml(label)];
-    if(point.category==='perikanan'&&point.class)details.push(escapeHtml(point.class));
+    if(point.sourceCategory)details.push(`Kategori sumber: ${escapeHtml(categoryLabels[point.sourceCategory]||point.sourceCategory)}`);
+    if((point.category==='perikanan'||point.sourceCategory==='perikanan')&&point.class)details.push(escapeHtml(point.class));
     if(point.manager&&point.manager!=='-')details.push(`Pengelola: ${escapeHtml(point.manager)}`);
-    const popup=`<div class="popup-title">${escapeHtml(point.name)}</div><div class="popup-meta">${details.join('<br>')}</div><span class="popup-badge">Sumber: BIG KSP</span>`;
+    const popup=`<div class="popup-title">${escapeHtml(point.name)}</div><div class="popup-meta">${details.join('<br>')}</div><span class="popup-badge ${point.category==='utama'?'main-port-popup-badge':''}">Sumber: ${escapeHtml(point.source||'BIG KSP')}</span>`;
     L.marker(point.coords,{icon,title:point.name}).bindPopup(popup).addTo(markerLayer);
   });
   awsMarkerLayer.clearLayers();
@@ -105,6 +141,7 @@ function updateMap(){
   });
   const categoryCounts=Object.fromEntries(Object.keys(categoryLabels).map(category=>[category,visible.filter(point=>point.category===category).length]));
   document.getElementById('totalMetric').innerHTML=`${visible.length+visibleAws.length+visibleArg.length} <small>titik</small>`;
+  document.getElementById('mainPortMetric').innerHTML=`${visible.filter(point=>point.category==='utama').length} <small>titik</small>`;
   document.getElementById('generalMetric').innerHTML=`${categoryCounts.umum+categoryCounts.penyeberangan} <small>titik</small>`;
   document.getElementById('fisheryMetric').innerHTML=`${categoryCounts.perikanan} <small>titik</small>`;
   document.getElementById('specialMetric').innerHTML=`${categoryCounts.khusus} <small>titik</small>`;
@@ -113,9 +150,11 @@ function updateMap(){
   document.getElementById('visibleCount').textContent=`${visible.length+visibleAws.length+visibleArg.length} lokasi ditampilkan`;
   document.getElementById('filterCount').textContent=`${selectedTypes().length} aktif`;
   regionInputs.forEach(input=>{
-    const count=wharves.filter(point=>point.district===input.dataset.region&&selectedTypes().includes(point.category)).length;
+    const count=portPoints.filter(point=>point.district===input.dataset.region&&selectedTypes().includes(point.category)).length;
     input.closest('.region-option').querySelector('b').textContent=count;
   });
+  const mainPortAvailability=document.getElementById('mainPortAvailability');
+  if(mainPortAvailability)mainPortAvailability.textContent=`${mainPortMatchedCount} dari ${mainPortExpectedCount} titik tersedia`;
 }
 function createMapLayout(mapImage){
   const output=document.createElement('canvas');output.width=1800;output.height=Math.round(output.width*mapImage.height/mapImage.width);
@@ -129,17 +168,18 @@ function createMapLayout(mapImage){
   ctx.fillStyle=muted;ctx.font='700 10px "DM Sans", sans-serif';ctx.letterSpacing='1.4px';ctx.fillText('SITARUM · PROVINSI BANTEN',40,47);ctx.letterSpacing='0';
   ctx.fillStyle=text;ctx.font='700 19px Manrope, "DM Sans", sans-serif';ctx.fillText('Sebaran Pelabuhan & Stasiun Cuaca',40,75);
   const visiblePorts=getVisiblePoints(),types=selectedTypes(),legendItems=[];
-  const categoryColors={umum:'#087f83',penyeberangan:'#377ab7',perikanan:'#d99a32',khusus:'#7d69a6'};
+  const categoryColors={utama:'#245363',umum:'#087f83',penyeberangan:'#377ab7',perikanan:'#d99a32',khusus:'#7d69a6'};
   for(const category of types)legendItems.push({label:categoryLabels[category],count:visiblePorts.filter(point=>point.category===category).length,color:categoryColors[category]});
   if(awsToggle.checked)legendItems.push({label:'Stasiun AWS BMKG',count:awsStations.length,color:'#28739a'});
   if(argToggle.checked)legendItems.push({label:'Stasiun ARG',count:argStations.length,color:'#4b8da9'});
+  if(waterBoundaryToggle.checked)legendItems.push({label:'Batas perairan Banten',count:6,color:'#278da7',symbol:'line'});
   const legendWidth=260,legendHeight=43+legendItems.length*26,legendX=output.width-legendWidth-24,legendY=24;
   roundRect(legendX,legendY,legendWidth,legendHeight,9,glass,line);
   ctx.fillStyle='#087f83';ctx.font='700 10px "DM Sans", sans-serif';ctx.letterSpacing='1.2px';ctx.fillText('LEGENDA',legendX+14,legendY+20);ctx.letterSpacing='0';
   ctx.strokeStyle=line;ctx.beginPath();ctx.moveTo(legendX+13,legendY+29);ctx.lineTo(legendX+legendWidth-13,legendY+29);ctx.stroke();
   let rowY=legendY+48;
   legendItems.forEach(item=>{
-    ctx.beginPath();ctx.arc(legendX+19,rowY-3,5.5,0,Math.PI*2);ctx.fillStyle=item.color;ctx.fill();ctx.strokeStyle='#fff';ctx.lineWidth=1.5;ctx.stroke();
+    if(item.symbol==='line'){ctx.beginPath();ctx.moveTo(legendX+13,rowY-3);ctx.lineTo(legendX+25,rowY-3);ctx.strokeStyle=item.color;ctx.lineWidth=2;ctx.setLineDash([3,2]);ctx.stroke();ctx.setLineDash([])}else{ctx.beginPath();ctx.arc(legendX+19,rowY-3,5.5,0,Math.PI*2);ctx.fillStyle=item.color;ctx.fill();ctx.strokeStyle='#fff';ctx.lineWidth=1.5;ctx.stroke()}
     ctx.fillStyle=text;ctx.font='600 10px "DM Sans", sans-serif';ctx.fillText(item.label,legendX+31,rowY);
     ctx.textAlign='right';ctx.fillStyle=muted;ctx.font='600 9px "DM Sans", sans-serif';ctx.fillText(String(item.count),legendX+legendWidth-13,rowY);ctx.textAlign='left';rowY+=26;
   });
@@ -161,7 +201,8 @@ typeInputs.forEach(input=>input.addEventListener('change',updateMap));
 regionInputs.forEach(input=>input.addEventListener('change',updateMap));
 awsToggle.addEventListener('change',updateMap);
 argToggle.addEventListener('change',updateMap);
-document.getElementById('clearFilters').addEventListener('click',()=>{[...typeInputs,...regionInputs,awsToggle,argToggle].forEach(input=>input.checked=true);updateMap()});
+waterBoundaryToggle.addEventListener('change',()=>{if(waterBoundaryToggle.checked)waterBoundaryLayer.addTo(map);else map.removeLayer(waterBoundaryLayer)});
+document.getElementById('clearFilters').addEventListener('click',()=>{[...typeInputs,...regionInputs,awsToggle,argToggle,waterBoundaryToggle].forEach(input=>input.checked=true);waterBoundaryLayer.addTo(map);updateMap()});
 document.getElementById('resetView').addEventListener('click',()=>{map.setView(initialCenter,initialZoom);showToast('Tampilan peta dikembalikan ke Provinsi Banten.')});
 exportBtn.addEventListener('click',event=>{event.stopPropagation();exportMenu.hidden=!exportMenu.hidden;exportBtn.setAttribute('aria-expanded',String(!exportMenu.hidden))});
 document.addEventListener('click',event=>{if(!event.target.closest('.export-wrap'))closeExportMenu()});
