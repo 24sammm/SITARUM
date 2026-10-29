@@ -79,11 +79,8 @@ basemapControl.onAdd=()=>{
 };
 basemapControl.addTo(map);
 L.control.zoom({position:'topleft'}).addTo(map);
-const waterBoundaryLayer=L.geoJSON(null,{
-  pane:'overlayPane',
-  interactive:false,
-  style:{color:'#278da7',weight:1.7,opacity:.9,dashArray:'7 5',fillColor:'#55b7c9',fillOpacity:.025}
-}).addTo(map);
+const waterBoundaryLayer=L.layerGroup().addTo(map);
+const waterBoundaryLayers=new Map();
 const markerLayer=L.layerGroup().addTo(map);
 const awsMarkerLayer=L.layerGroup().addTo(map);
 const argMarkerLayer=L.layerGroup().addTo(map);
@@ -92,6 +89,7 @@ const regionInputs=[...document.querySelectorAll('[data-region]')];
 const awsToggle=document.getElementById('awsToggle');
 const argToggle=document.getElementById('argToggle');
 const waterBoundaryToggle=document.getElementById('waterBoundaryToggle');
+const waterBoundaryInputs=[...document.querySelectorAll('[data-water-name]')];
 const toast=document.getElementById('toast'),exportBtn=document.getElementById('exportBtn'),exportMenu=document.getElementById('exportMenu');
 let toastTimer;
 
@@ -127,9 +125,25 @@ function showAwsDetail(point){
 }
 fetch('batasperairan.geojson').then(response=>{if(!response.ok)throw new Error('File batas perairan tidak dapat dimuat');return response.json()}).then(data=>{
   const bantenWaters=(data.features||[]).filter(feature=>String(feature.properties?.provinsi||'').toLowerCase()==='banten');
-  waterBoundaryLayer.addData({type:'FeatureCollection',features:bantenWaters});
-  if(!waterBoundaryToggle.checked)map.removeLayer(waterBoundaryLayer);
-}).catch(error=>{console.error(error);waterBoundaryToggle.disabled=true;showToast('Layer batas perairan gagal dimuat dari file GeoJSON.')});
+  bantenWaters.forEach(feature=>{
+    const name=feature.properties?.perairan;
+    const zone=L.geoJSON(feature,{
+      pane:'overlayPane',interactive:false,
+      style:{color:'#278da7',weight:1.7,opacity:.9,dashArray:'7 5',fillColor:'#55b7c9',fillOpacity:.025}
+    });
+    if(name)zone.bindTooltip(name,{permanent:true,direction:'center',className:'water-boundary-label',opacity:.96,interactive:false});
+    waterBoundaryLayers.set(name,zone);
+    const input=waterBoundaryInputs.find(option=>option.dataset.waterName===name);
+    if(input?.checked&&waterBoundaryToggle.checked)zone.addTo(waterBoundaryLayer);
+  });
+  updateWaterBoundaryControls();
+}).catch(error=>{console.error(error);waterBoundaryToggle.disabled=true;waterBoundaryInputs.forEach(input=>input.disabled=true);showToast('Layer batas perairan gagal dimuat dari file GeoJSON.')});
+function updateWaterBoundaryControls(){
+  const activeCount=waterBoundaryInputs.filter(input=>input.checked).length;
+  waterBoundaryToggle.checked=activeCount===waterBoundaryInputs.length;
+  waterBoundaryToggle.indeterminate=activeCount>0&&activeCount<waterBoundaryInputs.length;
+  document.getElementById('waterBoundaryCount').textContent=`${activeCount} zona`;
+}
 function selectedTypes(){return typeInputs.filter(input=>input.checked).map(input=>input.dataset.filter)}
 function selectedRegions(){return regionInputs.filter(input=>input.checked).map(input=>input.dataset.region)}
 function getVisiblePoints(){const types=selectedTypes(),regions=selectedRegions();return portPoints.filter(point=>types.includes(point.category)&&regions.includes(point.district))}
@@ -208,7 +222,8 @@ function createMapLayout(mapImage){
   for(const category of types)legendItems.push({label:categoryLabels[category],count:visiblePorts.filter(point=>point.category===category).length,color:categoryColors[category]});
   if(awsToggle.checked)legendItems.push({label:'Stasiun AWS BMKG',count:awsStations.length,color:'#28739a'});
   if(argToggle.checked)legendItems.push({label:'Stasiun ARG',count:argStations.length,color:'#4b8da9'});
-  if(waterBoundaryToggle.checked)legendItems.push({label:'Batas perairan Banten',count:6,color:'#278da7',symbol:'line'});
+  const activeWaterCount=waterBoundaryInputs.filter(input=>input.checked).length;
+  if(activeWaterCount)legendItems.push({label:'Batas perairan Banten',count:activeWaterCount,color:'#278da7',symbol:'line'});
   const legendWidth=260,legendHeight=43+legendItems.length*26,legendX=output.width-legendWidth-24,legendY=24;
   roundRect(legendX,legendY,legendWidth,legendHeight,9,glass,line);
   ctx.fillStyle='#087f83';ctx.font='700 10px "DM Sans", sans-serif';ctx.letterSpacing='1.2px';ctx.fillText('LEGENDA',legendX+14,legendY+20);ctx.letterSpacing='0';
@@ -237,8 +252,25 @@ typeInputs.forEach(input=>input.addEventListener('change',updateMap));
 regionInputs.forEach(input=>input.addEventListener('change',updateMap));
 awsToggle.addEventListener('change',updateMap);
 argToggle.addEventListener('change',updateMap);
-waterBoundaryToggle.addEventListener('change',()=>{if(waterBoundaryToggle.checked)waterBoundaryLayer.addTo(map);else map.removeLayer(waterBoundaryLayer)});
-document.getElementById('clearFilters').addEventListener('click',()=>{[...typeInputs,...regionInputs,awsToggle,argToggle,waterBoundaryToggle].forEach(input=>input.checked=true);waterBoundaryLayer.addTo(map);updateMap()});
+waterBoundaryToggle.addEventListener('change',()=>{
+  waterBoundaryInputs.forEach(input=>{
+    input.checked=waterBoundaryToggle.checked;
+    const zone=waterBoundaryLayers.get(input.dataset.waterName);
+    if(!zone)return;
+    if(input.checked)zone.addTo(waterBoundaryLayer);else waterBoundaryLayer.removeLayer(zone);
+  });
+  updateWaterBoundaryControls();
+});
+waterBoundaryInputs.forEach(input=>input.addEventListener('change',()=>{
+  const zone=waterBoundaryLayers.get(input.dataset.waterName);
+  if(zone){if(input.checked)zone.addTo(waterBoundaryLayer);else waterBoundaryLayer.removeLayer(zone)}
+  updateWaterBoundaryControls();
+}));
+document.getElementById('clearFilters').addEventListener('click',()=>{
+  [...typeInputs,...regionInputs,awsToggle,argToggle].forEach(input=>input.checked=true);
+  waterBoundaryInputs.forEach(input=>{input.checked=true;const zone=waterBoundaryLayers.get(input.dataset.waterName);if(zone)zone.addTo(waterBoundaryLayer)});
+  updateWaterBoundaryControls();updateMap();
+});
 document.getElementById('resetView').addEventListener('click',()=>{map.setView(initialCenter,initialZoom);showToast('Tampilan peta dikembalikan ke Provinsi Banten.')});
 document.getElementById('awsDetailClose').addEventListener('click',()=>{const panel=document.getElementById('awsDetail');panel.classList.remove('has-selection');panel.setAttribute('aria-hidden','true')});
 exportBtn.addEventListener('click',event=>{event.stopPropagation();exportMenu.hidden=!exportMenu.hidden;exportBtn.setAttribute('aria-expanded',String(!exportMenu.hidden))});
