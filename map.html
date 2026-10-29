@@ -12,7 +12,7 @@
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="">
   <link rel="stylesheet" href="styles.css">
   <link rel="stylesheet" href="overrides.css?v=sidebar-nav-v1">
-  <link rel="stylesheet" href="source-data.css?v=metric-cards-modern-v1">
+  <link rel="stylesheet" href="source-data.css?v=water-boundary-labels-v2">
 </head>
 <body>
   <div class="app-shell">
@@ -92,8 +92,16 @@
               <label class="filter-option"><span class="legend-symbol fishery-symbol"><svg viewBox="0 0 24 26" aria-hidden="true"><path class="control-boat" d="M6 2h12v2H6zM4 6h16v5H4zM3 12h18l-3 3H6z"/><path class="control-anchor" d="M12 12v7m-2.5-5h5m-4-5a1.5 1.5 0 1 1 3 0 1.5 1.5 0 0 1-3 0ZM6.5 18c.2 4 2.4 6 5.5 6s5.3-2 5.5-6m-11 0 2.5 2m8.5-2-2.5 2"/></svg></span><span class="filter-copy"><strong>Pelabuhan perikanan</strong><small>Data KKP dan DKP</small></span><input type="checkbox" checked data-filter="perikanan"><span class="switch"></span></label>
               <label class="filter-option"><span class="special-symbol"><img src="https://cdn-icons-png.flaticon.com/128/14770/14770597.png" alt=""></span><span class="filter-copy"><strong>Terminal khusus</strong><small>Tersus dan TUKS</small></span><input type="checkbox" checked data-filter="khusus"><span class="switch"></span></label>
             </div>
-            <div class="filter-group water-boundary-group"><div class="filter-title"><span>BATAS PERAIRAN</span><span class="count-pill water-boundary-count">6 zona</span></div>
-              <label class="filter-option"><span class="boundary-symbol" aria-hidden="true"></span><span class="filter-copy"><strong>Perairan Banten</strong><small>6 area dari GeoJSON</small></span><input type="checkbox" checked id="waterBoundaryToggle"><span class="switch"></span></label>
+            <div class="filter-group water-boundary-group"><div class="filter-title"><span>BATAS PERAIRAN</span><span class="count-pill water-boundary-count" id="waterBoundaryCount">6 zona</span></div>
+              <label class="filter-option"><span class="boundary-symbol" aria-hidden="true"></span><span class="filter-copy"><strong>Semua perairan</strong><small>Aktifkan atau nonaktifkan seluruh zona</small></span><input type="checkbox" checked id="waterBoundaryToggle"><span class="switch"></span></label>
+              <div class="water-zone-options">
+                <label class="filter-option water-zone-option"><span class="boundary-symbol" aria-hidden="true"></span><span class="filter-copy"><strong>Perairan Utara Tangerang</strong></span><input type="checkbox" checked data-water-name="Perairan Utara Tangerang"><span class="switch"></span></label>
+                <label class="filter-option water-zone-option"><span class="boundary-symbol" aria-hidden="true"></span><span class="filter-copy"><strong>Perairan Utara Serang</strong></span><input type="checkbox" checked data-water-name="Perairan Utara Serang"><span class="switch"></span></label>
+                <label class="filter-option water-zone-option"><span class="boundary-symbol" aria-hidden="true"></span><span class="filter-copy"><strong>Selat Sunda Bagian Utara</strong></span><input type="checkbox" checked data-water-name="Selat Sunda Bagian Utara"><span class="switch"></span></label>
+                <label class="filter-option water-zone-option"><span class="boundary-symbol" aria-hidden="true"></span><span class="filter-copy"><strong>Selat Sunda Barat Pandeglang</strong></span><input type="checkbox" checked data-water-name="Selat Sunda Barat Pandeglang"><span class="switch"></span></label>
+                <label class="filter-option water-zone-option"><span class="boundary-symbol" aria-hidden="true"></span><span class="filter-copy"><strong>Perairan Selatan Pandeglang</strong></span><input type="checkbox" checked data-water-name="Perairan Selatan Pandeglang"><span class="switch"></span></label>
+                <label class="filter-option water-zone-option"><span class="boundary-symbol" aria-hidden="true"></span><span class="filter-copy"><strong>Perairan Selatan Lebak</strong></span><input type="checkbox" checked data-water-name="Perairan Selatan Lebak"><span class="switch"></span></label>
+              </div>
             </div>
             <div class="filter-group aws-layer-group"><div class="filter-title"><span>STASIUN CUACA</span><span class="count-pill aws-count">15 titik</span></div>
               <label class="filter-option aws-filter-option"><span class="aws-symbol"><svg viewBox="0 0 24 24" aria-hidden="true"><circle class="solar-sun" cx="18" cy="5" r="2"/><path class="solar-ray" d="M18 1.5v1m0 5v1m-3.5-3.5h1m5 0h1m-5-2.5.8.8m3.4 3.4.8.8m0-5-.8.8m-3.4 3.4-.8.8"/><path class="solar-panel" d="M4 9h14l2 8H2z"/><path class="solar-grid" d="m7 10-1.2 6m5.2-6v6m3.2-6 1 6M4 13h12"/><path class="solar-leg" d="M10 17v3m-3 1h9"/></svg></span><span class="filter-copy"><strong>Stasiun AWS BMKG</strong><small>Sumber: AWS Center</small></span><input type="checkbox" checked id="awsToggle" data-layer-toggle="aws"><span class="switch"></span></label>
@@ -141,6 +149,6 @@
   <script src="data/ports-data.js"></script>
   <script src="data/aws-stations-data.js"></script>
   <script src="data/arg-stations-data.js"></script>
-  <script src="app.js?v=aws-no-coordinate-source-v1"></script>
+  <script src="app.js?v=water-boundary-labels-v2"></script>
 </body>
 </html>
