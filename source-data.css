@@ -138,3 +138,8 @@
 .metrics .metric-card .metric-foot{margin-top:auto;padding-top:8px}
 @media(max-width:600px){.metrics .metric-card .metric-foot{margin-top:auto;padding-top:7px}}
 
+/* Nama untuk tiga batas perairan di pesisir utara Banten. */
+.water-boundary-label{padding:4px 7px!important;border:1px solid rgba(39,141,167,.5)!important;border-radius:5px!important;background:rgba(12,45,58,.78)!important;box-shadow:0 2px 7px rgba(5,24,32,.22)!important;color:#fff!important;font:700 9px 'DM Sans',sans-serif!important;letter-spacing:.15px;white-space:nowrap}
+.water-boundary-label::before{display:none!important}
+@media(max-width:600px){.water-boundary-label{padding:3px 5px!important;font-size:7px!important;white-space:normal;max-width:120px;text-align:center}}
+
