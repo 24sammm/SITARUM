@@ -12,7 +12,7 @@
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="">
   <link rel="stylesheet" href="styles.css">
   <link rel="stylesheet" href="overrides.css?v=sidebar-nav-v1">
-  <link rel="stylesheet" href="source-data.css?v=water-boundary-v1">
+  <link rel="stylesheet" href="source-data.css?v=metric-cards-modern-v1">
 </head>
 <body>
   <div class="app-shell">
@@ -46,7 +46,6 @@
       </header>
       <section class="page-heading">
         <div><div class="section-kicker title-sized"><span></span> SITARUM</div><h1 class="kicker-sized">Sistem Titik Alokasi & Ruang Umum,Perikanan,Swasta Maritim</h1><p>Jelajahi sebaran fasilitas dermaga di Provinsi Banten.</p></div>
-        <div class="heading-actions"><button class="button button-light" id="resetView"><span>↗</span> Atur ulang peta</button></div>
       </section>
       <section class="metrics" id="metrics" aria-label="Ringkasan data">
         <article class="metric-card"><div class="metric-top"><span class="metric-icon navy">⌖</span><span class="metric-label">TOTAL LOKASI</span><span class="metric-trend">BIG + BMKG</span></div><div class="metric-value" id="totalMetric">138 <small>titik</small></div><div class="metric-foot">Pelabuhan utama, fasilitas & stasiun cuaca</div></article>
@@ -59,9 +58,31 @@
       </section>
 
       <section class="map-panel" id="mapPanel">
-        <div class="map-panel-header"><div><h2>Peta Pelabuhan &amp; Stasiun Cuaca</h2><p>Jelajahi kategori pelabuhan dan titik pengamatan cuaca BMKG</p></div><div class="map-tools"><span class="map-updated"><i></i> Peta interaktif</span><button class="icon-button map-menu" id="layersBtn" title="Informasi layer">☷</button></div></div>
+        <div class="map-panel-header"><div><h2>Peta Pelabuhan &amp; Stasiun Cuaca</h2><p>Jelajahi kategori pelabuhan dan titik pengamatan cuaca BMKG</p></div><div class="map-tools"><button class="button button-light map-reset-button" id="resetView"><span>↗</span> Atur ulang peta</button><span class="map-updated"><i></i> Peta interaktif</span><button class="icon-button map-menu" id="layersBtn" title="Informasi layer">☷</button></div></div>
         <div class="map-layout">
-          <div id="map" aria-label="Peta interaktif pelabuhan dan stasiun AWS di Provinsi Banten"></div>
+          <div class="map-canvas-wrap"><div id="map" aria-label="Peta interaktif pelabuhan dan stasiun AWS di Provinsi Banten"></div>
+          <section class="aws-detail" id="awsDetail" aria-live="polite" aria-labelledby="awsDetailTitle">
+          <div class="aws-detail-image-wrap">
+            <img id="awsDetailImage" src="https://staklim-yogya.bmkg.go.id/asset/images/alat/AWS1.jpg" alt="Ilustrasi perangkat Automatic Weather Station dari BMKG" loading="lazy">
+            <span class="aws-image-caption" id="awsImageCaption">Foto perangkat AWS · BMKG</span>
+          </div>
+          <div class="aws-detail-content">
+            <button class="aws-detail-close" id="awsDetailClose" type="button" aria-label="Tutup detail AWS">×</button><div class="aws-detail-heading"><div><span class="aws-detail-kicker">DETAIL STASIUN CUACA</span><h2 id="awsDetailTitle">Pilih titik AWS pada peta</h2><p id="awsDetailSubtitle">Informasi lokasi dan perangkat akan ditampilkan di sini.</p></div><span class="aws-detail-status"><i></i> AWS BMKG</span></div>
+            <dl class="aws-detail-grid">
+              <div><dt>ID stasiun</dt><dd id="awsDetailId">—</dd></div>
+              <div><dt>Nama pada data</dt><dd id="awsDetailFullName">—</dd></div>
+              <div><dt>Kabupaten / kota</dt><dd id="awsDetailRegion">—</dd></div>
+              <div><dt>Lintang</dt><dd id="awsDetailLat">—</dd></div>
+              <div><dt>Bujur</dt><dd id="awsDetailLon">—</dd></div>
+              <div><dt>Sistem koordinat</dt><dd id="awsDetailDatum">—</dd></div>
+              <div><dt>Jenis stasiun</dt><dd>Automatic Weather Station</dd></div>
+            </dl>
+            <div class="aws-detail-description"><h3>Parameter pengamatan</h3><p>AWS mengukur dan merekam unsur cuaca secara otomatis. Perangkat umumnya mencakup sensor suhu dan kelembapan udara, tekanan udara, arah dan kecepatan angin, curah hujan, serta radiasi matahari; data logger, komunikasi, dan catu daya panel surya.</p></div>
+            <div class="aws-detail-sources"><span id="awsDetailSource">Referensi stasiun: AWS Center BMKG</span><a href="https://awscenter.bmkg.go.id/" target="_blank" rel="noopener">Buka AWS Center BMKG ↗</a><a id="awsPhotoSource" href="https://staklim-yogya.bmkg.go.id/alat-pengamatan-bmkg/" target="_blank" rel="noopener">Referensi foto BMKG ↗</a></div>
+            <p class="aws-detail-note" id="awsDetailNote">Foto ilustrasi perangkat AWS dari laman BMKG; belum tersedia foto spesifik untuk titik ini.</p>
+          </div>
+        </section>
+        </div>
           <aside class="map-sidebar" id="mapFilters">
             <div class="map-side-head"><div><span class="eyebrow">KONTROL PETA</span><h3>Layer & filter</h3></div><button class="text-button" id="clearFilters">Reset</button></div>
             <div class="filter-group"><div class="filter-title"><span>KATEGORI PELABUHAN</span><span class="count-pill" id="filterCount">5 aktif</span></div>
@@ -120,6 +141,6 @@
   <script src="data/ports-data.js"></script>
   <script src="data/aws-stations-data.js"></script>
   <script src="data/arg-stations-data.js"></script>
-  <script src="app.js?v=imagery-default-v1"></script>
+  <script src="app.js?v=aws-no-coordinate-source-v1"></script>
 </body>
 </html>
