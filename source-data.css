@@ -143,3 +143,69 @@
 .water-boundary-label::before{display:none!important}
 @media(max-width:600px){.water-boundary-label{padding:3px 5px!important;font-size:7px!important;white-space:normal;max-width:120px;text-align:center}}
 
+.water-zone-options{margin:5px 0 0 12px;padding-left:10px;border-left:1px solid #dce9eb}
+.water-boundary-group .water-zone-option{min-height:31px;margin:0;padding:5px 7px;gap:8px;border-color:transparent;border-radius:6px}
+.water-boundary-group .water-zone-option:hover{background:#f6f9fa}
+.water-boundary-group .water-zone-option .boundary-symbol{width:18px;height:12px;flex-basis:18px;border-top-width:1.5px}
+.water-boundary-group .water-zone-option .filter-copy strong{font-size:9px;font-weight:600;letter-spacing:0;text-transform:none}
+.water-boundary-group .water-zone-option .switch{transform:scale(.88);transform-origin:right center}
+
+/* Compact summary cards with less decoration and more balanced spacing. */
+section.metrics{gap:12px;row-gap:12px}
+section.metrics .metric-card{box-sizing:border-box;height:148px;min-height:148px;padding:13px 14px 12px;border-radius:10px;background:#fff;box-shadow:0 3px 12px rgba(24,52,68,.035)}
+section.metrics .metric-card::before{display:none}
+section.metrics .metric-card:hover{transform:translateY(-1px);box-shadow:0 6px 16px rgba(24,52,68,.065)}
+section.metrics .metric-top{grid-template-columns:30px minmax(0,1fr) auto;gap:8px;min-height:30px}
+section.metrics .metric-icon,section.metrics .main-port-metric-symbol{width:30px;height:30px;flex-basis:30px;border-radius:8px}
+section.metrics .metric-icon svg{max-width:17px;max-height:17px}
+section.metrics .metric-label,section.metrics .main-port-metric-symbol+.metric-label{font-size:7px;letter-spacing:.55px;line-height:1.3}
+section.metrics .metric-trend{padding:4px 5px;font-size:6px;letter-spacing:.15px}
+section.metrics .metric-value{margin:13px 0 0 38px;font-size:25px;letter-spacing:-.35px}
+section.metrics .metric-value small{font-size:8px}
+section.metrics .metric-foot{margin:8px 0 0 38px;padding:0;font-size:8px;line-height:1.4;color:#87959d}
+@media(max-width:820px){section.metrics .metric-card{height:138px;min-height:138px;padding:11px}section.metrics .metric-value{margin-left:35px}section.metrics .metric-foot{margin-left:35px}}
+@media(max-width:600px){section.metrics{gap:9px}section.metrics .metric-card{height:132px;min-height:132px;padding:10px}section.metrics .metric-top{grid-template-columns:27px minmax(0,1fr) auto;gap:6px}section.metrics .metric-icon,section.metrics .main-port-metric-symbol{width:27px;height:27px;flex-basis:27px}section.metrics .metric-value{margin:12px 0 0 33px;font-size:23px}section.metrics .metric-foot{margin:7px 0 0 33px;font-size:7px}section.metrics .metric-trend{display:none}}
+
+/* Alternate card composition: concise horizontal summary. */
+section.metrics .metric-card{height:126px;min-height:126px;padding:14px 15px;border-radius:9px;display:grid;grid-template-columns:minmax(0,1fr) auto;grid-template-rows:1fr auto;column-gap:8px;align-items:center;background:#fff;border-color:#e8edef;box-shadow:0 2px 9px rgba(24,52,68,.025)}
+section.metrics .metric-top{grid-column:1;grid-row:1;grid-template-columns:29px minmax(0,1fr);gap:9px;min-height:29px;align-self:center}
+section.metrics .metric-icon,section.metrics .main-port-metric-symbol{width:29px;height:29px;flex-basis:29px;border-radius:7px}
+section.metrics .metric-label,section.metrics .main-port-metric-symbol+.metric-label{font-size:7px;letter-spacing:.52px;line-height:1.35}
+section.metrics .metric-top>.metric-trend,section.metrics .metric-top>.legend-dot{display:none}
+section.metrics .metric-value{grid-column:2;grid-row:1;align-self:center;margin:0;font-size:24px;white-space:nowrap}
+section.metrics .metric-value small{display:block;margin-top:3px;text-align:right;font-size:8px}
+section.metrics .metric-foot{grid-column:1/-1;grid-row:2;align-self:end;margin:8px 0 0;padding:8px 0 0;border-top:1px solid #f0f3f4;font-size:8px;line-height:1.35;max-width:none}
+section.metrics .metric-card:hover{transform:translateY(-1px);border-color:#dbe6e8;box-shadow:0 5px 13px rgba(24,52,68,.055)}
+@media(max-width:820px){section.metrics .metric-card{height:116px;min-height:116px;padding:12px}section.metrics .metric-value{font-size:22px}}
+@media(max-width:600px){section.metrics .metric-card{height:108px;min-height:108px;padding:10px}section.metrics .metric-top{grid-template-columns:25px minmax(0,1fr);gap:7px}section.metrics .metric-icon,section.metrics .main-port-metric-symbol{width:25px;height:25px;flex-basis:25px}section.metrics .metric-value{font-size:20px}section.metrics .metric-foot{font-size:7px}}
+
+/* Metrics as a compact navigation bar with details revealed on demand. */
+section.metrics{position:relative;z-index:20;display:flex;flex-wrap:wrap;gap:0;margin-bottom:24px;padding:0;overflow:visible;border:1px solid #e2e9ec;border-radius:10px;background:#fff;box-shadow:0 3px 12px rgba(23,43,59,.035)}
+section.metrics .metric-card{position:relative;z-index:1;flex:1 1 14.28%;box-sizing:border-box;display:flex;align-items:center;justify-content:flex-start;height:58px;min-height:58px;padding:9px 12px;overflow:visible;border:0;border-right:1px solid #edf1f2;border-radius:0;background:transparent;box-shadow:none;cursor:default;transition:background .16s ease}
+section.metrics .metric-card:first-child{border-radius:9px 0 0 9px}
+section.metrics .metric-card:nth-child(7){border-right:0;border-radius:0 9px 9px 0}
+section.metrics .metric-card:hover,section.metrics .metric-card:focus,section.metrics .metric-card:focus-visible{z-index:5;transform:none;background:#f8fbfb;outline:none;box-shadow:none}
+section.metrics .metric-card:focus-visible{box-shadow:inset 0 0 0 2px #58aaa7}
+section.metrics .metric-top{display:flex;align-items:center;gap:8px;min-width:0;min-height:0;margin:0}
+section.metrics .metric-icon,section.metrics .main-port-metric-symbol{width:27px;height:27px;flex:0 0 27px;border-radius:7px}
+section.metrics .metric-label,section.metrics .main-port-metric-symbol+.metric-label{font-size:7px;letter-spacing:.45px;line-height:1.25}
+section.metrics .metric-top>.metric-trend,section.metrics .metric-top>.legend-dot{display:none}
+section.metrics .metric-card::after{content:"";position:absolute;top:calc(100% + 4px);left:0;width:230px;max-width:calc(100vw - 36px);height:70px;border:1px solid #e2e9ec;border-radius:8px;background:#fff;box-shadow:0 9px 24px rgba(23,43,59,.14);opacity:0;visibility:hidden;transform:translateY(-4px);transition:opacity .16s ease,transform .16s ease,visibility .16s;pointer-events:none}
+section.metrics .metric-value{position:absolute;z-index:2;top:calc(100% + 13px);left:13px;margin:0;font-size:23px;line-height:1;opacity:0;visibility:hidden;transform:translateY(-3px);transition:opacity .16s ease,transform .16s ease,visibility .16s;pointer-events:none}
+section.metrics .metric-value small{display:inline-block;margin:0 0 0 4px;text-align:left;font-size:8px}
+section.metrics .metric-foot{position:absolute;z-index:2;top:calc(100% + 45px);left:13px;width:204px;max-width:calc(100vw - 62px);margin:0;padding:0;border:0;font-size:8px;line-height:1.35;opacity:0;visibility:hidden;transform:translateY(-3px);transition:opacity .16s ease,transform .16s ease,visibility .16s;pointer-events:none}
+section.metrics .metric-card:hover::after,section.metrics .metric-card:focus::after,section.metrics .metric-card:hover .metric-value,section.metrics .metric-card:focus .metric-value,section.metrics .metric-card:hover .metric-foot,section.metrics .metric-card:focus .metric-foot{opacity:1;visibility:visible;transform:translateY(0)}
+section.metrics .metric-card:nth-child(7)::after{left:auto;right:0}
+section.metrics .metric-card:nth-child(7) .metric-value,section.metrics .metric-card:nth-child(7) .metric-foot{left:auto;right:13px;text-align:right}
+@media(max-width:1100px){section.metrics .metric-card{flex-basis:25%}section.metrics .metric-card:nth-child(4n){border-right:0}section.metrics .metric-card:nth-child(7){border-radius:0}section.metrics .metric-card:nth-child(4n)::after{left:auto;right:0}section.metrics .metric-card:nth-child(4n) .metric-value,section.metrics .metric-card:nth-child(4n) .metric-foot{left:auto;right:13px;text-align:right}}
+@media(max-width:600px){section.metrics{margin-bottom:18px;border-radius:8px}section.metrics .metric-card{flex-basis:50%;height:52px;min-height:52px;padding:8px 9px;border-bottom:1px solid #edf1f2}section.metrics .metric-card:nth-child(odd){border-right:1px solid #edf1f2}section.metrics .metric-card:nth-child(even){border-right:0}section.metrics .metric-card:nth-child(7){border-radius:0;border-bottom:0}section.metrics .metric-card:nth-child(6){border-bottom:1px solid #edf1f2}section.metrics .metric-icon,section.metrics .main-port-metric-symbol{width:24px;height:24px;flex-basis:24px}section.metrics .metric-label,section.metrics .main-port-metric-symbol+.metric-label{font-size:6px;letter-spacing:.25px}section.metrics .metric-card:nth-child(even)::after{left:auto;right:0}section.metrics .metric-card:nth-child(even) .metric-value,section.metrics .metric-card:nth-child(even) .metric-foot{left:auto;right:13px;text-align:right}section.metrics .metric-card:nth-child(7)::after,section.metrics .metric-card:nth-child(7) .metric-value,section.metrics .metric-card:nth-child(7) .metric-foot{left:0;right:auto;text-align:left}}
+
+section.metrics .metric-card{justify-content:center}
+section.metrics .metric-top{justify-content:center;width:100%}
+section.metrics .metric-value{left:0;width:100%;text-align:center}
+section.metrics .metric-value small{margin-left:5px}
+section.metrics .metric-foot{left:12px;right:12px;width:auto;max-width:none;text-align:center}
+section.metrics .metric-card:nth-child(7) .metric-value,section.metrics .metric-card:nth-child(7) .metric-foot{left:12px;right:12px;text-align:center}
+@media(max-width:1100px){section.metrics .metric-card:nth-child(4n) .metric-value,section.metrics .metric-card:nth-child(4n) .metric-foot{left:12px;right:12px;text-align:center}}
+@media(max-width:600px){section.metrics .metric-card:nth-child(even) .metric-value,section.metrics .metric-card:nth-child(even) .metric-foot{left:12px;right:12px;text-align:center}section.metrics .metric-card:nth-child(7) .metric-value,section.metrics .metric-card:nth-child(7) .metric-foot{left:12px;right:12px;text-align:center}}
+
