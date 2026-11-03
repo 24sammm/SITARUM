@@ -46,8 +46,8 @@ const categoryLabels={
   perikanan:'Pelabuhan perikanan',
   khusus:'Terminal khusus (Tersus/TUKS)'
 };
-const initialCenter=[-6.15,106.15],initialZoom=8.4;
-const map=L.map('map',{zoomControl:false,scrollWheelZoom:true}).setView(initialCenter,initialZoom);
+const initialCenter=[-6.15,106.15],initialZoom=9;
+const map=L.map('map',{zoomControl:false,scrollWheelZoom:true,zoomSnap:1,zoomDelta:1}).setView(initialCenter,initialZoom);
 const streetMap=L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{
   attribution:'&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',maxZoom:19,crossOrigin:'anonymous'
 });
@@ -146,9 +146,19 @@ function updateWaterBoundaryControls(){
 }
 function selectedTypes(){return typeInputs.filter(input=>input.checked).map(input=>input.dataset.filter)}
 function selectedRegions(){return regionInputs.filter(input=>input.checked).map(input=>input.dataset.region)}
-function getVisiblePoints(){const types=selectedTypes(),regions=selectedRegions();return portPoints.filter(point=>types.includes(point.category)&&regions.includes(point.district))}
+function getVisiblePoints(){
+  const types=selectedTypes(),regions=selectedRegions();
+  return portPoints.filter(point=>{
+    const matchesMain=types.includes(point.category);
+    const matchesSourceCategory=point.category==='utama'&&point.sourceCategory&&types.includes(point.sourceCategory);
+    return(matchesMain||matchesSourceCategory)&&regions.includes(point.district);
+  }).map(point=>({
+    ...point,
+    displayCategory:point.category==='utama'&&!types.includes('utama')&&types.includes(point.sourceCategory)?point.sourceCategory:point.category
+  }));
+}
 function getExportPoints(){
-  const portRows=getVisiblePoints().map(point=>({name:point.name,category:categoryLabels[point.category],siteId:point.code||'',sourceCategory:categoryLabels[point.sourceCategory]||point.sourceCategory||'',district:point.district,coords:point.coords,datum:point.datum||'WGS 84',source:point.source}));
+  const portRows=getVisiblePoints().map(point=>({name:point.name,category:categoryLabels[point.displayCategory||point.category],siteId:point.code||'',sourceCategory:categoryLabels[point.sourceCategory]||point.sourceCategory||'',district:point.district,coords:point.coords,datum:point.datum||'WGS 84',source:point.source}));
   const awsRows=awsToggle.checked?awsStations.map(point=>({name:point.name,category:'Stasiun AWS BMKG',siteId:point.siteId,sourceCategory:'AWS',district:'',coords:point.coords,datum:point.datum,source:point.source})):[];
   const argRows=argToggle.checked?argStations.map(point=>({name:point.name,category:'ARG',siteId:point.siteId,sourceCategory:point.sourceCategory,district:'',coords:point.coords,datum:point.datum,source:point.source})):[];
   return [...portRows,...awsRows,...argRows];
@@ -156,20 +166,21 @@ function getExportPoints(){
 function updateMap(){
   const visible=getVisiblePoints();markerLayer.clearLayers();
   visible.forEach(point=>{
-    const label=categoryLabels[point.category]||'Pelabuhan';
-    const isAnchorCategory=point.category==='umum'||point.category==='perikanan';
-    const icon=point.category==='utama'
+    const displayCategory=point.displayCategory||point.category;
+    const label=categoryLabels[displayCategory]||'Pelabuhan';
+    const isAnchorCategory=displayCategory==='umum'||displayCategory==='perikanan';
+    const icon=displayCategory==='utama'
       ?L.divIcon({className:'main-port-pin',html:'<span><img src="https://cdn-icons-png.flaticon.com/512/6213/6213926.png" alt=""></span>',iconSize:[28,28],iconAnchor:[14,14]})
-      :point.category==='khusus'
+      :displayCategory==='khusus'
       ?L.divIcon({className:'special-map-pin',html:'<span><img src="https://cdn-icons-png.flaticon.com/128/14770/14770597.png" alt=""></span>',iconSize:[30,30],iconAnchor:[15,15]})
       :isAnchorCategory
-      ?L.divIcon({className:`harbor-pin harbor-anchor-pin anchor-${point.category}`,html:'<svg viewBox="0 0 44 56" aria-hidden="true"><path class="map-pin-shape" d="M22 1.5C10.7 1.5 1.5 10.7 1.5 22c0 14.2 20.5 32.5 20.5 32.5S42.5 36.2 42.5 22C42.5 10.7 33.3 1.5 22 1.5Z"/><circle class="map-pin-center" cx="22" cy="21" r="15"/><g class="map-pin-symbol"><path d="M15 13h14v3H15zM12 18h20v6H12zM10 26h24l-4 5H15z"/><path class="map-anchor" d="M22 25v8m-3.5-5.5h7M20.5 24a1.5 1.5 0 1 1 3 0 1.5 1.5 0 0 1-3 0ZM16 32c.2 4 2.6 6.2 6 6.2s5.8-2.2 6-6.2m-12 0 3 2.7m9-2.7-3 2.7"/></g></svg>',iconSize:[22,29],iconAnchor:[11,27]})
-      :L.divIcon({className:'harbor-pin',html:`<div class="pin-core pin-${point.category}" aria-hidden="true"></div>`,iconSize:[17,17],iconAnchor:[8,8]});
+      ?L.divIcon({className:`harbor-pin harbor-anchor-pin anchor-${displayCategory}`,html:'<svg viewBox="0 0 44 56" aria-hidden="true"><path class="map-pin-shape" d="M22 1.5C10.7 1.5 1.5 10.7 1.5 22c0 14.2 20.5 32.5 20.5 32.5S42.5 36.2 42.5 22C42.5 10.7 33.3 1.5 22 1.5Z"/><circle class="map-pin-center" cx="22" cy="21" r="15"/><g class="map-pin-symbol"><path d="M15 13h14v3H15zM12 18h20v6H12zM10 26h24l-4 5H15z"/><path class="map-anchor" d="M22 25v8m-3.5-5.5h7M20.5 24a1.5 1.5 0 1 1 3 0 1.5 1.5 0 0 1-3 0ZM16 32c.2 4 2.6 6.2 6 6.2s5.8-2.2 6-6.2m-12 0 3 2.7m9-2.7-3 2.7"/></g></svg>',iconSize:[22,29],iconAnchor:[11,27]})
+      :L.divIcon({className:'harbor-pin',html:`<div class="pin-core pin-${displayCategory}" aria-hidden="true"></div>`,iconSize:[17,17],iconAnchor:[8,8]});
     const details=[escapeHtml(point.district),escapeHtml(label)];
     if(point.sourceCategory)details.push(`Kategori sumber: ${escapeHtml(categoryLabels[point.sourceCategory]||point.sourceCategory)}`);
     if((point.category==='perikanan'||point.sourceCategory==='perikanan')&&point.class)details.push(escapeHtml(point.class));
     if(point.manager&&point.manager!=='-')details.push(`Pengelola: ${escapeHtml(point.manager)}`);
-    const popup=`<div class="popup-title">${escapeHtml(point.name)}</div><div class="popup-meta">${details.join('<br>')}</div><span class="popup-badge ${point.category==='utama'?'main-port-popup-badge':''}">Sumber: ${escapeHtml(point.source||'BIG KSP')}</span>`;
+    const popup=`<div class="popup-title">${escapeHtml(point.name)}</div><div class="popup-meta">${details.join('<br>')}</div><span class="popup-badge ${displayCategory==='utama'?'main-port-popup-badge':''}">Sumber: ${escapeHtml(point.source||'BIG KSP')}</span>`;
     L.marker(point.coords,{icon,title:point.name}).bindPopup(popup).addTo(markerLayer);
   });
   awsMarkerLayer.clearLayers();
@@ -189,9 +200,9 @@ function updateMap(){
     const popup=`<div class="popup-title">${escapeHtml(point.name)}</div><div class="popup-meta">${details.join('<br>')}</div><span class="popup-badge arg-popup-badge">Layer: ARG</span>`;
     L.marker(point.coords,{icon,title:`${point.name} (${point.siteId})`}).bindPopup(popup).addTo(argMarkerLayer);
   });
-  const categoryCounts=Object.fromEntries(Object.keys(categoryLabels).map(category=>[category,visible.filter(point=>point.category===category).length]));
+  const categoryCounts=Object.fromEntries(Object.keys(categoryLabels).map(category=>[category,visible.filter(point=>(point.displayCategory||point.category)===category).length]));
   document.getElementById('totalMetric').innerHTML=`${visible.length+visibleAws.length+visibleArg.length} <small>titik</small>`;
-  document.getElementById('mainPortMetric').innerHTML=`${visible.filter(point=>point.category==='utama').length} <small>titik</small>`;
+  document.getElementById('mainPortMetric').innerHTML=`${visible.filter(point=>(point.displayCategory||point.category)==='utama').length} <small>titik</small>`;
   document.getElementById('generalMetric').innerHTML=`${categoryCounts.umum+categoryCounts.penyeberangan} <small>titik</small>`;
   document.getElementById('fisheryMetric').innerHTML=`${categoryCounts.perikanan} <small>titik</small>`;
   document.getElementById('specialMetric').innerHTML=`${categoryCounts.khusus} <small>titik</small>`;
@@ -200,7 +211,7 @@ function updateMap(){
   document.getElementById('visibleCount').textContent=`${visible.length+visibleAws.length+visibleArg.length} lokasi ditampilkan`;
   document.getElementById('filterCount').textContent=`${selectedTypes().length} aktif`;
   regionInputs.forEach(input=>{
-    const count=portPoints.filter(point=>point.district===input.dataset.region&&selectedTypes().includes(point.category)).length;
+    const count=visible.filter(point=>point.district===input.dataset.region).length;
     input.closest('.region-option').querySelector('b').textContent=count;
   });
   const mainPortAvailability=document.getElementById('mainPortAvailability');
@@ -219,7 +230,7 @@ function createMapLayout(mapImage){
   ctx.fillStyle=text;ctx.font='700 19px Manrope, "DM Sans", sans-serif';ctx.fillText('Sebaran Pelabuhan & Stasiun Cuaca',40,75);
   const visiblePorts=getVisiblePoints(),types=selectedTypes(),legendItems=[];
   const categoryColors={utama:'#245363',umum:'#087f83',penyeberangan:'#377ab7',perikanan:'#d99a32',khusus:'#7d69a6'};
-  for(const category of types)legendItems.push({label:categoryLabels[category],count:visiblePorts.filter(point=>point.category===category).length,color:categoryColors[category]});
+  for(const category of types)legendItems.push({label:categoryLabels[category],count:visiblePorts.filter(point=>(point.displayCategory||point.category)===category).length,color:categoryColors[category]});
   if(awsToggle.checked)legendItems.push({label:'Stasiun AWS BMKG',count:awsStations.length,color:'#28739a'});
   if(argToggle.checked)legendItems.push({label:'Stasiun ARG',count:argStations.length,color:'#4b8da9'});
   const activeWaterCount=waterBoundaryInputs.filter(input=>input.checked).length;
